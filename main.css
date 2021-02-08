@@ -45,11 +45,17 @@ main {
   flex-basis: 60%;
 }
 
+.repos {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
 .pinned-repos {
   margin: 20px 5% 20px 2em;
   display: flex;
   flex-flow: wrap;
-  justify-content space-around;
+  justify-content: space-around;
 }
 
 .bio-sidebar ul {
@@ -58,6 +64,12 @@ main {
   height: 80%;
   top: 0;
   left: 0;
+}
+
+.orgLogo {
+  width: 24px;
+  height: auto;
+  margin: 2px;
 }
 
 .repo-card {
