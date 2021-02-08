@@ -77,6 +77,7 @@ const bioHeading = (userBio) => {
    `  <img src="${userBio.photo}" alt="photo of ${userBio.name}">
       <h2>${userBio.name}</h2>
       <h3>${userBio.gitHubName}</h3>
+      </p>${userBio.bio}</p>
       <ul class="bio-list">`;
   if(userBio.company != '') {
     bioString += `<li>${userBio.company}</li>`;
@@ -152,7 +153,6 @@ const newProject = (developerId) => {
 }
 
 const projectSubmit = (e) => {
-  console.log(e);
   if(e.target.id == 'project-submit') {
     console.log(document.querySelector('#project-name').value);
     console.log(document.querySelector('#project-description').value);
