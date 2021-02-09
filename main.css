@@ -1,2 +1,134 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: antiquewhite;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: block;
+}
+
+.navbar ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+
+.navbar li {
+  margin: 5px 1vw;
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-start;
+  padding-bottom: 3em;
+}
+
+.bio-sidebar {
+  margin: 20px 5% 10px 2em;
+}
+
+.git-content {
+  flex-basis: 60%;
+}
+
+.repos {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+.pinned-repos {
+  margin: 20px 5% 20px 2em;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+}
+
+.bio-sidebar ul {
+  list-style: none;
+  padding-inline-start: 0;
+  height: 80%;
+  top: 0;
+  left: 0;
+}
+
+.orgLogo {
+  width: 24px;
+  height: auto;
+  margin: 2px;
+}
+
+.repo-card {
+  width:  50%;
+}
+
+.repo-card h3 {
+  font-size: 1.1rem;
+}
+
+div.tech-type {
+  height: 12px;
+  width: 12px;
+  border: 1px solid black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+p.tech-name {
+  display: inline-block;
+}
+
+input, label, textarea {
+  display: block;
+}
+
+button {
+  margin: 5px 0 5px;
+}
+
+footer {
+  height: 3rem;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+div.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+ul.footer-list {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  list-style: none;
+  font-size: 12px;
+}
+.footer-list li {
+  margin: 5px 1vw;
+}
+
+@media (max-width: 660px) {
+  .footer-container a {
+    display: none;
+  }
+}
