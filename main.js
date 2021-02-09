@@ -269,7 +269,7 @@ const hasPinned = (developer) => {
 
 //Create respository cards
 const paintPinned = (developer) => {
-  let pinned = "pinned-repose";
+  let pinned = "pinned-repos";
   let  pinButton = customizePinsButton();
   let repoString = '';
   if (hasPinned(developer)){
