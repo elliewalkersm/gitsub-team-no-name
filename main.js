@@ -196,7 +196,7 @@ const developers_arr = [
 
 
 // Packages array
-const packages_arr [
+const packages_arr = [
   {
     title: "Docker",
     description: "A software platform used for building applications based on containers -- small and lightweight execution environments.",
@@ -220,8 +220,7 @@ const packages_arr [
   {
     title: "Containers",
     description: "A single place for your team to manage Docker images and decide who can see and access your images.",
-  };
-  buildPackages(packages_arr);
+  }
 ];
 
 
@@ -230,14 +229,14 @@ const buildPackages = (arr) => {
   let domString = " ";
 
   for (let i = 0; i < arr.length; i++) {
-    domString += `<div class="card">
+    domString += `<div class="card" id=${arr[i].id}>
     <div class="card-body">
       <h5 class="card-title">${arr[i].title}</h5>
       <p class="card-text">${arr[i].description}</p>
       <button type="button" class="btn btn-secondary">Learn More</button>
     </div>
   </div>`;
-  }
+  };
 
   printToDom("#gitHubPackages", domString);
 };
