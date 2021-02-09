@@ -186,6 +186,68 @@ const developers_arr = [
 ];
 
 
+
+
+
+
+
+
+
+
+
+// Packages array
+const packages_arr [
+  {
+    title: "Docker",
+    description: "A software platform used for building applications based on containers -- small and lightweight execution environments.",
+  },
+  {
+    title: "Apache Maven",
+    description: "A default package manager used for the Java programming lanuage and the Java runtime environment.",
+  },
+  {
+    title: "NuGet",
+    description: "A free and open source package manager used for the Microsoft development platforms including .NET.", 
+  },
+  {
+    title: "RubyGems",
+    description: "A standard format for distributing Ruby programs and libraries used for the Ruby programming language.",
+  },
+  {
+    title: "npm",
+    description: "A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.",
+  },
+  {
+    title: "Containers",
+    description: "A single place for your team to manage Docker images and decide who can see and access your images.",
+  };
+  buildPackages(packages_arr);
+];
+
+
+// Package card builder
+const buildPackages = (arr) => {
+  let domString = " ";
+
+  for (let i = 0; i < arr.length; i++) {
+    domString += `<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">${arr[i].title}</h5>
+      <p class="card-text">${arr[i].description}</p>
+      <button type="button" class="btn btn-secondary">Learn More</button>
+    </div>
+  </div>`;
+  }
+
+  printToDom("#gitHubPackages", domString);
+};
+
+
+
+
+
+
+
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
 }
@@ -334,6 +396,7 @@ const init = () => {
   paintPinned(developers_arr[0]);
   newProject(0);
   buttonListener();
+  buildPackages(packages_arr); //ejw
 }
 
 init(); 
