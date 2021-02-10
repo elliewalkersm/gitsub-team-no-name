@@ -257,6 +257,18 @@ const addPackage = (e) => {
   document.querySelector('form').reset();
 }
 
+const searchBar = document.querySelector('#searchBar');
+
+searchBar.addEventListener('keyup', e => {
+  const searchString = e.target.value;
+  const filteredPackages = packages_arr.filter(package => {
+    return (
+      package.title.includes(searchString)
+    );
+  });
+  buildPackages(filteredPackages);
+})
+
 // END PACKAGES PAGE
 
 
