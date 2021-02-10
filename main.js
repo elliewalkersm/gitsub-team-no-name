@@ -233,6 +233,7 @@ const buildPackages = (arr) => {
       <h5 class="card-title">${arr[i].title}</h5>
       <p class="card-text">${arr[i].description}</p>
       <button type="button" class="btn btn-secondary">Learn More</button>
+      <button type="button" class="btn btn-danger" id="deleteBtn" ${arr[i].id}>Delete</button>
     </div>
   </div>`;
   };
@@ -245,27 +246,40 @@ const addPackage = (e) => {
 
   const title = document.querySelector('#packageTitle').value;
   const description = document.querySelector('#packageDescription').value;
+  const packageId = packages_arr
+    .map((package) => package.id)
+    .sort((a,b) => a - b);
+
+  const id = packageId.length ? packageId[packageId.length - 1] + 1 : 1;
 
   const obj = {
     title,
     description,
-  }
+    id,
+  };
 
   packages_arr.push(obj);
   buildPackages(packages_arr);
 
   document.querySelector('form').reset();
-}
+};
+
+const deletePackage = (e) => {
+  const targetType = e.target.type;
+  const targetId = e.target.id;
+  
+  if (targetType === 'button') {
+    const packageIndex = packages_arr.findIndex(package => package.id === targetId);
+    let deleted = packages_arr.splice(packageIndex, 1);
+  }
+  buildPackages(packages_arr);
+};
 
 const searchBar = document.querySelector('#searchBar');
 
 searchBar.addEventListener('keyup', e => {
   const searchString = e.target.value;
-  const filteredPackages = packages_arr.filter(package => {
-    return (
-      package.title.includes(searchString)
-    );
-  });
+  const filteredPackages = packages_arr.filter(package => package.title.includes(searchString));
   buildPackages(filteredPackages);
 })
 
@@ -276,7 +290,6 @@ searchBar.addEventListener('keyup', e => {
 
 
 const printToDom = (ID, string) => {
-  console.log(ID);
   document.querySelector(ID).innerHTML = string;
 }
 
@@ -417,6 +430,7 @@ const projectSubmit = (e) => {
 const buttonListener = () => {
   document.getElementById('new-project').addEventListener('click', projectSubmit);
   document.querySelector('#addBtn').addEventListener('click', addPackage);
+  document.querySelector('#deleteBtn').addEventListener('click', deletePackage);
 }
    
 
