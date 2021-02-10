@@ -132,7 +132,7 @@ const developers_arr = [
     repositories: [
       {
         repoID: 0,
-        pinned: true,
+        pinned: false,
         repoName: "sorting-hat",
         repoDescription: "Mimics the Sorting Hat of J.K. Rowlings Harry Potter Series." +
                          " Sorts names into the four houses of Hogwarts",
@@ -154,7 +154,7 @@ const developers_arr = [
       },
       {
         repoID: 3,
-        pinned: true,
+        pinned: false,
         repoName: "spellbound",
         repoDescription: "Electronic spellbook. Helps user find the right spell in a jiffy. To be used with caution.",
         technologies: [5, 2, 8],
@@ -217,7 +217,7 @@ const bioBadges = (userBio) => {
     `<h4>Highlights</h4>
      <ul class="highlights">`;
   for(let i = 0; i< userBio.badges.length; i++) {
-    console.log(badges[userBio.badges[i]].badgeName);
+    //console.log(badges[userBio.badges[i]].badgeName);
     bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
   }
   return bioString;
@@ -228,7 +228,7 @@ const bioOrganizations = (userBio) => {
     `<h4>Organizations</h4>
      <ul class="organizations">`;
   for(let i = 0; i < userBio.organizations.length; i++) {
-    console.log(organizations_arr[userBio.organizations[i]].orgName);
+    //console.log(organizations_arr[userBio.organizations[i]].orgName);
   //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
@@ -257,10 +257,11 @@ const customizePinsButton = () => {
 
 //modal dialog box from bootstrap components
 const pinnedDialog = (developer) => {
+  console.log(developer.keyId);
   let pinnedString = 
       `<div class="modal" id="pinned-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content" id="key_ID${developer.keyId}">
             <div class="modal-header">
               <h5 class="modal-title">Modal title</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -270,11 +271,16 @@ const pinnedDialog = (developer) => {
             <div class="modal-body">`;
               //display list of repositories with checkboxes
               let i = 0;
+              let checked = '';
               for(let item of developer.repositories) {
+                if(item.pinned) {
+                  checked = 'checked';
+                }
                 pinnedString +=
                   `<input type="checkbox" id="checkbox_${item.repoID}" name="checkbox_${item.repoName}"
-                    value="true">
+                    value="true" ${checked}>
                   <label for="checkbox_${item.repoID}">${item.repoName}</label>`;
+                checked = '';
               }
    pinnedString +=
               `<p>Modal body text goes here.</p>
@@ -307,21 +313,23 @@ const hasPinned = (developer) => {
 //Create respository cards
 const paintPinned = (developer) => {
   let pinned = "pinned-repose";
-  let  pinButton = customizePinsButton();
+  let pinButton = customizePinsButton();
   let repoString = '';
-  if (hasPinned(developer)){
+  let has_pinned = hasPinned(developer);
+  if (has_pinned){
     repoString =  `<h3>Pinned</h3>${pinButton}
                        <div class="pinned-repos">`;
   } else {
     repoString = `<h3>Repositories</h3>${pinButton}
                     <div class="unpinned-repos">`;
   }
+  //created pinned dialog button
   repoString += `<div class="repo-dialog" id="pinned-dialog"></div>`;
   repoString += pinnedDialog(developer);
   let techIndex = 0; //tells us the most prominent tech used in the repository
   let i = 0; //limit to six repositories
   for(let item of developer.repositories) {
-    if(i < 6) {
+    if(i < 6 && ((item.pinned && has_pinned) || !has_pinned)) {
       techIndex = item.technologies[0];
       //console.log(technologies[techIndex].name);
       //console.log(technologies[techIndex].color);
@@ -341,6 +349,31 @@ const paintPinned = (developer) => {
   printToDom('#gitHubRepos', repoString);
 }
 
+//updates which repositories are pinned with checkbox form.
+const savePinned = (e) => {
+  //get id of form.
+  let develId = e.srcElement.parentElement.parentElement.id;
+  console.log("develId = " + develId);
+  let pinned_form = document.getElementById(develId);
+  //extract developer keyId from id of form.
+  let develKey = (develId.substr(6));
+  let element = '';
+  for(let item of developers_arr[develKey].repositories){
+    //console.log(item.repoID);
+    //get the corresponding checkbox for each repository
+    element = document.getElementById(`checkbox_${item.repoID}`);
+    //console.log(element);
+    if(element.checked) {
+      item.pinned = true;
+    } else {
+      item.pinned = false;
+    }
+    console.log(item);
+  }
+  paintPinned(developers_arr[develKey]);
+}
+
+
 const listenPinnedDialog = (e) => {
   switch(e.target.id) {
     case "customize-pins" :
@@ -351,42 +384,59 @@ const listenPinnedDialog = (e) => {
       document.querySelector('#pinned-modal').style.display = "none";
       break;
     case "save-pinned-dialog" :
+      savePinned(e);
       document.querySelector('#pinned-modal').style.display = "none";
       break;
   }
 }
 
-
+//Create new project form
 const newProject = (developerId) => {
   let projStr = '';
   projStr = 
     `<div class="container">
      <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
-      <h2>Create a new project</h2>
-      <label for="project-name">Project board name</label>
+      <h2>Create a new repository</h2>
+      <label for="project-name">Repository name</label>
       <input type="text" name="project-name" id="project-name" placeholder="Project board name">
       <label for="description">Description</label>
       <textarea id="project-description" name="project-description" rows="3" cols="50"></textarea>
-      <button type="button" id="project-submit" class="btn btn-success">Create project</button>
+      <button type="button" id="repository-submit" class="btn btn-success">Create repository</button>
     </div>`;
 
   printToDom("#new-project", projStr);
 }
 
-const projectSubmit = (e) => {
-  if(e.target.id == 'project-submit') {
-    console.log(document.querySelector('#project-name').value);
-    console.log(document.querySelector('#project-description').value);
+//Add repository
+const repositorySubmit = (e) => {
+  if(e.target.id == 'repository-submit') {
+    let repoName = document.querySelector('#project-name').value;
+    let repoDescription = document.querySelector('#project-description').value;
+    let pinned = true;
+    let technologies = [1,0];
+    let repoID = developers_arr[0].repositories.length;
+    console.log(repoID);
+    const new_repository = {
+      repoID,
+      pinned,
+      repoName,
+      repoDescription,
+      technologies
+    }
+    console.log(new_repository);
+    developers_arr[0].repositories.push(new_repository);
+    paintPinned(developers_arr[0]);  
   }
-}
+} 
 
 const buttonListener = () => {
-  document.getElementById('new-project').addEventListener('click', projectSubmit);
+  document.getElementById('new-project').addEventListener('click', repositorySubmit);
   document.getElementById('gitHubRepos').addEventListener('click', listenPinnedDialog);
 }
    
 
 const init = () => {
+  let page = window.location.pathname;
   paintBio(developers_arr[0]);
   paintPinned(developers_arr[0]);
   newProject(0);
