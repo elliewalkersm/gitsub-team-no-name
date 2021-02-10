@@ -194,42 +194,41 @@ const developers_arr = [
 
 
 
-
+// PACKAGES PAGE
 // Packages array
 const packages_arr = [
   {
-    title: "Docker",
-    description: "A software platform used for building applications based on containers -- small and lightweight execution environments.",
+    title: 'Docker',
+    description: 'A software platform used for building applications based on containers -- small and lightweight execution environments.',
   },
   {
-    title: "Apache Maven",
-    description: "A default package manager used for the Java programming lanuage and the Java runtime environment.",
+    title: 'Apache Maven',
+    description: 'A default package manager used for the Java programming lanuage and the Java runtime environment.',
   },
   {
-    title: "NuGet",
-    description: "A free and open source package manager used for the Microsoft development platforms including .NET.", 
+    title: 'NuGet',
+    description: 'A free and open source package manager used for the Microsoft development platforms including .NET.', 
   },
   {
-    title: "RubyGems",
-    description: "A standard format for distributing Ruby programs and libraries used for the Ruby programming language.",
+    title: 'RubyGems',
+    description: 'A standard format for distributing Ruby programs and libraries used for the Ruby programming language.',
   },
   {
-    title: "npm",
-    description: "A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.",
+    title: 'npm',
+    description: 'A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.',
   },
   {
-    title: "Containers",
-    description: "A single place for your team to manage Docker images and decide who can see and access your images.",
+    title: 'Containers',
+    description: 'A single place for your team to manage Docker images and decide who can see and access your images.',
   }
 ];
-
 
 // Package card builder
 const buildPackages = (arr) => {
   let domString = " ";
 
   for (let i = 0; i < arr.length; i++) {
-    domString += `<div class="card" id=${arr[i].id}>
+    domString += `<div class="card">
     <div class="card-body">
       <h5 class="card-title">${arr[i].title}</h5>
       <p class="card-text">${arr[i].description}</p>
@@ -241,13 +240,31 @@ const buildPackages = (arr) => {
   printToDom("#gitHubPackages", domString);
 };
 
+const addPackage = (e) => {
+  e.preventDefault();
 
+  const title = document.querySelector('#packageTitle').value;
+  const description = document.querySelector('#packageDescription').value;
+
+  const obj = {
+    title,
+    description,
+  }
+
+  packages_arr.push(obj);
+  buildPackages(packages_arr);
+
+  document.querySelector('form').reset();
+}
+
+// END PACKAGES PAGE
 
 
 
 
 
 const printToDom = (ID, string) => {
+  console.log(ID);
   document.querySelector(ID).innerHTML = string;
 }
 
@@ -387,15 +404,30 @@ const projectSubmit = (e) => {
 
 const buttonListener = () => {
   document.getElementById('new-project').addEventListener('click', projectSubmit);
+  document.querySelector('#addBtn').addEventListener('click', addPackage);
 }
    
 
 const init = () => {
+  const page = (window.location.pathname)
+  switch (page) {
+    case "/index.html" :
+      paintPinned(developers_arr[0]);
+      newProject(0);
+      break;
+
+    case "/repositories.html" :
+      break;
+
+    case "/projects.html" :
+      break;
+
+    case "/packages.html" :
+      buildPackages(packages_arr);
+        break;   
+  }
   paintBio(developers_arr[0]);
-  paintPinned(developers_arr[0]);
-  newProject(0);
   buttonListener();
-  buildPackages(packages_arr); //ejw
 }
 
 init(); 

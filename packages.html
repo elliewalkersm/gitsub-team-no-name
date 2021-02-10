@@ -21,10 +21,27 @@
     </header>
     <main>
       <div class="bio-sidebar" id="gitHubProfile"></div>
+
       <div class="git-content">
         <div class="packages" id="gitHubPackages"></div>
-        <div class="create-project" id="new-project"></div>
+        <div id="packagesForm">
+          <form>
+            <h3>Add New Package</h3>
+            <h5>Coordination, track, and update your packages in one place.</h5>
+            <div class="mb-3">
+              <label for="packageTitle" class="form-label">Package Title</label>
+              <input type="text" class="form-control" id="packageTitle" placeholder="Input Package Title">
+            </div>
+            <div class="mb-3">
+              <label for="packageDescription" class="form-label">Package Description</label>
+              <input type="text" class="form-control" id="packageDescription" placeholder="Input Package Description">
+              <button type="submit" class="btn btn-success" id="addBtn">Add</button>
+            </div>
+          </form>
+        </div>
       </div>
+
+      <div class="create-project" id="new-project"></div>
     </main>
     <footer>
       <div class="footer-container">
