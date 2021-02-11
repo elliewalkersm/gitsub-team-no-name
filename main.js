@@ -188,11 +188,7 @@ const developers_arr = [
   },
 ];
 
-const repos_Arr = [
-{
-
-},
-];
+const repos_Arr = [];
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
@@ -306,16 +302,17 @@ const paintPinned = (developer) => {
   printToDom("#gitHubRepos", repoString);
 };
 
-
-const newRepo = (repoID) => {
+const newRepo = () => {
   let createRepoString = "";
-  createRepoString = `<form>
+  createRepoString = `<form id="newForm">
   <div class="form-group">
     <label for="nameFormControlInput1">Repository name</label>
     <input type="name" class="form-control" id="createRepoName" value="" required></div>
   <div class="form-group">
+  <div id="repoNameHelp" class="form-text">Great reposstory names are short and memorable. Need inspiration? How about reimagined-disco?
+</div>
     <label for="descriptionText">Description (optional)</label>
-    <textarea class="form-control" id="descriptionBox" rows="2"></textarea>
+    <textarea class="form-control" id="descriptionBox" rows="1"></textarea>
   </div>
   <hr></hr>
   <button type="submit" id="repoSubmit" class="btn btn-success">Create repository</button>
@@ -324,11 +321,32 @@ const newRepo = (repoID) => {
   printToDom("#createNewRepo", createRepoString);
 };
 
+// This function prints our repos to the DOM //
+const printRepo = (taco) => {
+  let printRepoString = "";
+  repos_Arr.forEach((item, i) => {
+    printRepoString += `
+  <div class="card" style= "width: 18rem;">
+<div class="card-body">
+  <h5 class="card-title">${item.repoName}</h5>
+  <p class="card-text">${item.repoDescription}</p>
+</div>
+</div>`;
+  });
+  printToDom("#printedRepos", printRepoString);
+};
 
-const createdRepos = (repoID) => {
-  let repoContainer = "";
-  repoContainer = ``
-} 
+const createRepo = (e) => {
+  e.preventDefault();
+  let obj = {
+    repoName: document.querySelector("#createRepoName").value,
+    repoDescription: document.querySelector("#descriptionBox").value,
+  };
+  repos_Arr.push(obj);
+  printRepo();
+  // TODO: Call function to print cards to DOM and pass it the repos_Arr //
+  document.querySelector("#newForm").reset();
+};
 
 const newProject = (developerId) => {
   let projStr = "";
@@ -355,34 +373,34 @@ const projectSubmit = (e) => {
 const buttonListener = () => {
   document
     .getElementById("new-project")
-    .addEventListener("click", projectSubmit)
+    .addEventListener("click", projectSubmit);
+  document.querySelector("form").addEventListener("submit", createRepo);
 };
 
 const init = () => {
-  const page = (window.location.pathname)
+  const page = window.location.pathname;
   switch (page) {
     case "/index.html":
-    paintPinned(developers_arr[0]);
-    newProject(0);
-    break;
+      paintPinned(developers_arr[0]);
+      newProject(0);
+      break;
 
     case "/repositories.html":
-    newRepo(repos_Arr)
-    break;
+      newRepo(repos_Arr);
+      printRepo(repos_Arr);
+      break;
 
     case "/projects.html":
-      newProject(0)
+      newProject(0);
       break;
 
     case "/packages.html":
       buildPackages(packages_arr);
-        break; 
-  };
-  
+      break;
+  }
+
   paintBio(developers_arr[0]);
   buttonListener();
-
-
 };
 
 init();
