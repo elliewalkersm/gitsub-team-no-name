@@ -1,4 +1,4 @@
-console.log("Team No-Name");
+// console.log("Team No-Name");
 
 //Array of common Badges / Highlights
 const badges = [
@@ -200,40 +200,46 @@ const packages_arr = [
   {
     title: 'Docker',
     description: 'A software platform used for building applications based on containers -- small and lightweight execution environments.',
+    id: 1,
   },
   {
     title: 'Apache Maven',
     description: 'A default package manager used for the Java programming lanuage and the Java runtime environment.',
+    id: 2,
   },
   {
     title: 'NuGet',
     description: 'A free and open source package manager used for the Microsoft development platforms including .NET.', 
+    id: 3,
   },
   {
     title: 'RubyGems',
     description: 'A standard format for distributing Ruby programs and libraries used for the Ruby programming language.',
+    id: 4,
   },
   {
     title: 'npm',
     description: 'A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.',
+    id: 5,
   },
   {
     title: 'Containers',
     description: 'A single place for your team to manage Docker images and decide who can see and access your images.',
+    id: 6,
   }
 ];
 
 // Package card builder
 const buildPackages = (arr) => {
   let domString = " ";
-
+  console.log(arr);
   for (let i = 0; i < arr.length; i++) {
     domString += `<div class="card">
     <div class="card-body">
       <h5 class="card-title">${arr[i].title}</h5>
       <p class="card-text">${arr[i].description}</p>
       <button type="button" class="btn btn-secondary">Learn More</button>
-      <button type="button" class="btn btn-danger" id="deleteBtn" ${arr[i].id}>Delete</button>
+      <button type="button" class="btn btn-danger" id=${arr[i].id}>Delete</button>
     </div>
   </div>`;
   };
@@ -261,27 +267,25 @@ const addPackage = (e) => {
   packages_arr.push(obj);
   buildPackages(packages_arr);
 
-  document.querySelector('form').reset();
+  document.querySelector('#packagesForm').reset();
 };
 
 const deletePackage = (e) => {
   const targetType = e.target.type;
-  const targetId = e.target.id;
+  const targetId = Number(e.target.id);
   
   if (targetType === 'button') {
     const packageIndex = packages_arr.findIndex(package => package.id === targetId);
-    let deleted = packages_arr.splice(packageIndex, 1);
+    let deletedPackage = packages_arr.splice(packageIndex, 1);
   }
   buildPackages(packages_arr);
 };
 
-const searchBar = document.querySelector('#searchBar');
-
-searchBar.addEventListener('keyup', e => {
+const packageSearch = (e) => {
   const searchString = e.target.value;
   const filteredPackages = packages_arr.filter(package => package.title.includes(searchString));
   buildPackages(filteredPackages);
-})
+};
 
 // END PACKAGES PAGE
 
@@ -320,7 +324,7 @@ const bioBadges = (userBio) => {
     `<h4>Highlights</h4>
      <ul class="highlights">`;
   for(let i = 0; i< userBio.badges.length; i++) {
-    console.log(badges[userBio.badges[i]].badgeName);
+    // console.log(badges[userBio.badges[i]].badgeName);
     bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
   }
   return bioString;
@@ -331,7 +335,7 @@ const bioOrganizations = (userBio) => {
     `<h4>Organizations</h4>
      <ul class="organizations">`;
   for(let i = 0; i < userBio.organizations.length; i++) {
-    console.log(organizations_arr[userBio.organizations[i]].orgName);
+    // console.log(organizations_arr[userBio.organizations[i]].orgName);
   //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
@@ -430,7 +434,9 @@ const projectSubmit = (e) => {
 const buttonListener = () => {
   document.getElementById('new-project').addEventListener('click', projectSubmit);
   document.querySelector('#addBtn').addEventListener('click', addPackage);
-  document.querySelector('#deleteBtn').addEventListener('click', deletePackage);
+  document.querySelector('#gitHubPackages').addEventListener('click', deletePackage);
+  document.querySelector('#searchBar').addEventListener('keyup', packageSearch);
+
 }
    
 
