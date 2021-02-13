@@ -1,40 +1,40 @@
-console.log("Team No-Name");
+// console.log("Team No-Name");
 
 //Array of common Badges / Highlights
 const badges = [
   {
     badgeID: 0,
     badgeName: "Arctic Code Vault Contributor",
-    badgeLogo: "./graphics/Arctic.svg"
+    badgeLogo: "./graphics/Arctic.svg",
   },
   {
     badgeID: 1,
     badgeName: "Developer Program Member",
-    badgeLogo: "./graphics/Developer.svg"
-  }
+    badgeLogo: "./graphics/Developer.svg",
+  },
 ];
 
 //Array of common technologies
 const technologies_arr = [
-  { 
+  {
     techID: 0,
     name: "HTML",
     color: "#e34c26",
     url: "https://github.com/trending?l=HTML",
   },
-  { 
+  {
     techID: 1,
     name: "CSS",
     color: "#563d7c",
     url: "https://github.com/trending?l=CSS",
   },
-  { 
+  {
     techID: 2,
     name: "JavaScript",
     color: "#f1e05a",
     url: "https://github.com/trending?l=JavaScript",
   },
-  { 
+  {
     techID: 3,
     name: "Apollo Guidance Computer",
     color: "#0B3D91",
@@ -46,38 +46,38 @@ const technologies_arr = [
     color: "#101F1F",
     url: "https://github.com/trending?l=AppleScript",
   },
-  {  
+  {
     techID: 5,
     name: "ASP.NET",
     color: "#9400ff",
     url: "https://github.com/trending?l=ASP.NET",
   },
-  {  
+  {
     techID: 6,
     name: "C",
     color: "#555555",
     url: "https://github.com/trending?l=C",
   },
-  {   
+  {
     techID: 7,
     name: "C++",
     color: "#f34b7d",
     url: "https://github.com/trending?l=C++",
   },
-  {  
+  {
     techID: 8,
     name: "C#",
     color: "#178600",
     url: "https://github.com/trending?l=Csharp",
   },
-  { 
+  {
     techID: 9,
     name: "Ruby",
     color: "#701516",
     url: "https://github.com/trending?l=Ruby",
   },
   {
-    techID: 10, 
+    techID: 10,
     name: "Twig",
     color: "#c1d026",
     url: "https://github.com/trending?l=Twig",
@@ -112,15 +112,13 @@ const organizations_arr = [
     orgName: "Nashville Software School",
     orgUrl: "https://github.com/nashville-software-school",
     orgLogo: "./graphics/NashvilleSoftwareSchool.png",
-  }
+  },
 ];
-
-
 
 //Array of developers
 const developers_arr = [
   {
-    keyId : 0, 
+    keyId: 0,
     name: "Harry Potter",
     photo: "./images/HarryPotter.jpg",
     gitHubName: "MagicHarry",
@@ -134,7 +132,7 @@ const developers_arr = [
     geoLocation: "Gryffindor at Hogwarts",
     website: "harrypottershop.com",
     twitterName: "@harryPotterFilm",
-    badges: [ 1, 0 ],
+    badges: [1, 0],
     organizations: [0, 1, 2, 3],
     repositories: [
       {
@@ -173,7 +171,7 @@ const developers_arr = [
         repoDescription: "Online ordering of tea, with maps and hours of your favorite tea rooms.",
         technologies: [1, 2, 3],
       },
-      { 
+      {
         repoID: 5,
         pinned: true,
         repoName: "mentormatic",
@@ -192,47 +190,45 @@ const developers_arr = [
    }
 ];
 
+const repos_Arr = [];
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
-}
+};
 
 const bioHeading = (userBio) => {
-  let bioString = 
-   `  <img src="${userBio.photo}" alt="photo of ${userBio.name}">
+  let bioString = `  <img src="${userBio.photo}" alt="photo of ${userBio.name}">
       <h2>${userBio.name}</h2>
       <h3>${userBio.gitHubName}</h3>
       </p>${userBio.bio}</p>
       <ul class="bio-list">`;
-  if(userBio.company != '') {
+  if (userBio.company != "") {
     bioString += `<li>${userBio.company}</li>`;
   }
-  if(userBio.egoLocation != '') {
+  if (userBio.egoLocation != "") {
     bioString += `<li>${userBio.geoLocation}</li>`;
   }
-  if(userBio.website != '') {
+  if (userBio.website != "") {
     bioString += `<li>${userBio.website}</li>`;
   }
-  if(userBio.twitterName!= '') {
+  if (userBio.twitterName != "") {
     bioString += `<li>${userBio.twitterName}</li>`;
   }
   return bioString;
-}
+};
 
 const bioBadges = (userBio) => {
-  let bioString = 
-    `<h4>Highlights</h4>
+  let bioString = `<h4>Highlights</h4>
      <ul class="highlights">`;
   for(let i = 0; i< userBio.badges.length; i++) {
     //console.log(badges[userBio.badges[i]].badgeName);
     bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
   }
   return bioString;
-}
+};
 
 const bioOrganizations = (userBio) => {
-  let bioString =
-    `<h4>Organizations</h4>
+  let bioString = `<h4>Organizations</h4>
      <ul class="organizations">`;
   for(let i = 0; i < userBio.organizations.length; i++) {
     //console.log(organizations_arr[userBio.organizations[i]].orgName);
@@ -240,27 +236,27 @@ const bioOrganizations = (userBio) => {
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
   return bioString;
-}
+};
 
 //Create side-bar bio section
 const paintBio = (userBio) => {
-  let bioString = bioHeading(userBio); 
+  let bioString = bioHeading(userBio);
   //Display Highlights / Badges
-  if(userBio.badges.length) {
+  if (userBio.badges.length) {
     bioString += bioBadges(userBio);
   }
-  if(userBio.organizations.length) {
+  if (userBio.organizations.length) {
     bioString += bioOrganizations(userBio);
   }
-  printToDom('#gitHubProfile', bioString);
-}
+  printToDom("#gitHubProfile", bioString);
+};
 
 const customizePinsButton = () => {
   let pinString = 
     `<button type="button" data-toggle="modal" data-target="#pinned-modal" 
       id="customize-pins" class="btn btn-success">Customize your pins</button>`;
   return pinString;
-}
+};
 
 //Create about panel
 const aboutDeveloper = (developer) => {
@@ -325,15 +321,14 @@ const pinnedDialog = (developer) => {
 //See if user has pinned any repositories
 const hasPinned = (developer) => {
   let pinned = false;
-  for(let item of developer.repositories) {
-    if(item.pinned){
+  for (let item of developer.repositories) {
+    if (item.pinned) {
       pinned = true;
       break;
     }
   }
   return pinned;
-}
-
+};
 
 //Create respository cards
 const paintPinned = (developer) => {
@@ -364,7 +359,7 @@ const paintPinned = (developer) => {
       //console.log(color);
       //console.log(technologies[techIndex].name);
       //console.log(technologies[techIndex].color);
-        repoString += `<div class="repo-card">
+      repoString += `<div class="repo-card">
                           <div class="card-body">
                             <h3>${item.repoName}</h3>
                             <p class="repo-description">${item.repoDescription}</p>`;
@@ -375,11 +370,60 @@ const paintPinned = (developer) => {
           repoString += `</div>
                        </div>`;
       i++; //limit to six repositories
-    } 
+    }
   }
   repoString += `</div>`;
-  printToDom('#gitHubRepos', repoString);
-}
+  printToDom("#gitHubRepos", repoString);
+};
+ // TODO // STRETCH Create event lsitener that is passed a cb function that prints the user's input STRETCH //
+ // 1. Retrieve the user input by setting the Search Repo to the id of our search bar //
+const searchRepo = document.getElementById("searchBar")
+ 
+const newRepo = () => { 
+  let createRepoString = "";
+  createRepoString = `<form id="newForm">
+  <div class="form-group">
+    <label for="nameFormControlInput1">Repository name</label>
+    <input type="name" class="col-md-4 rounded-3 border-1" id="createRepoName" value="" required></div>
+  <div class="form-group">
+  <div id="repoNameHelp" class="form-text">Great reposstory names are short and memorable. Need inspiration? How about reimagined-disco?
+</div>
+    <label for="descriptionText">Description (optional)</label>
+    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1"></textarea>
+  </div>
+  <hr></hr>
+  <button type="submit" id="repoSubmit" class="btn btn-success">Create repository</button>
+</form>`;
+
+  printToDom("#createNewRepo", createRepoString);
+};
+
+// This function prints our repos to the DOM //
+const printRepo = (taco) => {
+  let printRepoString = "";
+  repos_Arr.forEach((item, i) => {
+    printRepoString += `
+  <div class="card" style= "width: 18rem;">
+<div class="card-body">
+  <h5 class="card-title">${item.repoName}</h5>
+  <p class="card-text">${item.repoDescription}</p>
+</div>
+</div>`;
+  });
+  printToDom("#printedRepos", printRepoString);
+};
+
+const createRepo = (e) => {
+  e.preventDefault();
+  let obj = {
+    repoName: document.querySelector("#createRepoName").value,
+    repoDescription: document.querySelector("#descriptionBox").value,
+  };
+  repos_Arr.push(obj);
+  printRepo();
+  // TODO: Call function to print cards to DOM and pass it the repos_Arr // *** DONE ***
+  document.querySelector("#newForm").reset();
+};
 
 //updates which repositories are pinned using the checkbox form.
 const savePinned = (e) => {
@@ -546,7 +590,7 @@ const newProject = (developerId) => {
      </div>`;
 
   printToDom("#new-pinned-repository", projStr);
-}
+};
 
 //Add pinned repository
 const repositorySubmit = (e) => {
@@ -580,21 +624,51 @@ const repositorySubmit = (e) => {
     }
   }
 } 
+const projectSubmit = (e) => {
+  if (e.target.id == "project-submit") {
+    console.log(document.querySelector("#project-name").value);
+    console.log(document.querySelector("#project-description").value);
+  }
+};
 
-const buttonListener = () => {
+const buttonListenerRepo = () => {
+  document.querySelector("form").addEventListener("submit", createRepo);
+};
+
+const buttonListenerOverview = () => {
   document.getElementById('gitHubRepos').addEventListener('click', listenPinnedDialog);
   document.getElementById('new-pinned-repository').addEventListener('click', listenNewRepository);
   document.getElementById('new-pinned-repository').addEventListener('click', repositorySubmit);
 }
-   
 
 const init = () => {
-  let page = window.location.pathname;
   paintBio(developers_arr[0]);
-  aboutDeveloper(developers_arr[0]);
-  paintPinned(developers_arr[0]);
-  newProject(0);
-  buttonListener();
+  const page = window.location.pathname;
+  switch (page) {
+    case "/index.html":
+      aboutDeveloper(developers_arr[0]);
+      paintPinned(developers_arr[0]);
+      newProject(0);
+      buttonListenerOverview();
+      break;
+
+    case "/repositories.html":
+      newRepo(repos_Arr);
+      printRepo(repos_Arr);
+      buttonListenerRepo();
+      break;
+
+    case "/projects.html":
+      newProject(0);
+      break;
+
+    case "/packages.html":
+      buildPackages(packages_arr);
+      break;
+  }
+
+  // paintBio(developers_arr[0]);
+  
 }
 
-init(); 
+init()
