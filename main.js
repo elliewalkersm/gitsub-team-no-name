@@ -301,18 +301,21 @@ const paintPinned = (developer) => {
   repoString += `</div>`;
   printToDom("#gitHubRepos", repoString);
 };
-
-const newRepo = () => {
+ // TODO // STRETCH Create event lsitener that is passed a cb function that prints the user's input STRETCH //
+ // 1. Retrieve the user input by setting the Search Repo to the id of our search bar //
+const searchRepo = document.getElementById("searchBar")
+ 
+const newRepo = () => { 
   let createRepoString = "";
   createRepoString = `<form id="newForm">
   <div class="form-group">
     <label for="nameFormControlInput1">Repository name</label>
-    <input type="name" class="form-control" id="createRepoName" value="" required></div>
+    <input type="name" class="col-md-4 rounded-3 border-1" id="createRepoName" value="" required></div>
   <div class="form-group">
   <div id="repoNameHelp" class="form-text">Great reposstory names are short and memorable. Need inspiration? How about reimagined-disco?
 </div>
     <label for="descriptionText">Description (optional)</label>
-    <textarea class="form-control" id="descriptionBox" rows="1"></textarea>
+    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1"></textarea>
   </div>
   <hr></hr>
   <button type="submit" id="repoSubmit" class="btn btn-success">Create repository</button>
@@ -344,7 +347,7 @@ const createRepo = (e) => {
   };
   repos_Arr.push(obj);
   printRepo();
-  // TODO: Call function to print cards to DOM and pass it the repos_Arr //
+  // TODO: Call function to print cards to DOM and pass it the repos_Arr // *** DONE ***
   document.querySelector("#newForm").reset();
 };
 
