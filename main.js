@@ -196,6 +196,100 @@ const developers_arr = [
 const repos_Arr = [];
 
 
+// PACKAGES PAGE
+// Packages array
+const packages_arr = [
+  {
+    title: 'Docker',
+    description: 'A software platform used for building applications based on containers -- small and lightweight execution environments.',
+    id: 1,
+  },
+  {
+    title: 'Apache Maven',
+    description: 'A default package manager used for the Java programming lanuage and the Java runtime environment.',
+    id: 2,
+  },
+  {
+    title: 'NuGet',
+    description: 'A free and open source package manager used for the Microsoft development platforms including .NET.', 
+    id: 3,
+  },
+  {
+    title: 'RubyGems',
+    description: 'A standard format for distributing Ruby programs and libraries used for the Ruby programming language.',
+    id: 4,
+  },
+  {
+    title: 'npm',
+    description: 'A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.',
+    id: 5,
+  },
+  {
+    title: 'Containers',
+    description: 'A single place for your team to manage Docker images and decide who can see and access your images.',
+    id: 6,
+  }
+];
+
+// Package card builder
+const buildPackages = (arr) => {
+  let domString = " ";
+  console.log(arr);
+  for (let i = 0; i < arr.length; i++) {
+    domString += `<div class="packagesCard" style="width: 15rem; background: none;">
+    <div class="card-body">
+      <h5 class="card-title">${arr[i].title}</h5>
+      <p class="card-text">${arr[i].description}</p>
+      <button type="button" class="btn btn-secondary">Learn More</button>
+      <button type="button" class="btn btn-danger" id=${arr[i].id}>Delete</button>
+    </div>
+  </div>`;
+  };
+
+  printToDom("#gitHubPackages", domString);
+};
+
+const addPackage = (e) => {
+  e.preventDefault();
+
+  const title = document.querySelector('#packageTitle').value;
+  const description = document.querySelector('#packageDescription').value;
+  const packageId = packages_arr
+    .map((package) => package.id)
+    .sort((a,b) => a - b);
+
+  const id = packageId.length ? packageId[packageId.length - 1] + 1 : 1;
+
+  const obj = {
+    title,
+    description,
+    id,
+  };
+
+  packages_arr.push(obj);
+  buildPackages(packages_arr);
+
+  document.querySelector('form').reset();
+};
+
+const deletePackage = (e) => {
+  const targetType = e.target.type;
+  const targetId = Number(e.target.id);
+  
+  if (targetType === 'button') {
+    const packageIndex = packages_arr.findIndex(package => package.id === targetId);
+    let deletedPackage = packages_arr.splice(packageIndex, 1);
+  }
+  buildPackages(packages_arr);
+};
+
+const packageSearch = (e) => {
+  const searchString = e.target.value;
+  const filteredPackages = packages_arr.filter(package => package.title.includes(searchString));
+  buildPackages(filteredPackages);
+};
+
+// END PACKAGES PAGE
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
@@ -246,9 +340,11 @@ const bioOrganizations = (userBio) => {
 //Create side-bar bio section
 const paintBio = (userBio) => {
   let bioString = bioHeading(userBio);
+  bioString += `<hr />`;
   //Display Highlights / Badges
   if (userBio.badges.length) {
     bioString += bioBadges(userBio);
+    bioString += `<hr />`;
   }
   if (userBio.organizations.length) {
     bioString += bioOrganizations(userBio);
@@ -388,13 +484,13 @@ const newRepo = () => {
   let createRepoString = "";
   createRepoString = `<form id="newForm">
   <div class="form-group">
-    <label for="nameFormControlInput1">Repository name</label>
-    <input type="name" class="col-md-4 rounded-3 border-1" id="createRepoName" value="" required></div>
+    <label for="nameFormControlInput1" style="color: #f0f6fc;">Repository name</label>
+    <input type="name"; class="col-md-4 rounded-3 border-1" id="createRepoName" value="" style="background: none; color: #f0f6fc;" required></div>
   <div class="form-group">
-  <div id="repoNameHelp" class="form-text">Great reposstory names are short and memorable. Need inspiration? How about reimagined-disco?
+  <div id="repoNameHelp" class="form-text" style="color: #f0f6fc;">Great repository names are short and memorable. Need inspiration? How about reimagined-disco?
 </div>
-    <label for="descriptionText">Description (optional)</label>
-    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1"></textarea>
+    <label for="descriptionText" style="color: #f0f6fc;">Description (optional)</label>
+    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1" style="background: none;"></textarea>
   </div>
   <hr></hr>
   <button type="submit" id="repoSubmit" class="btn btn-success">Create repository</button>
@@ -408,12 +504,12 @@ const printRepo = (taco) => {
   let printRepoString = "";
   repos_Arr.forEach((item, i) => {
     printRepoString += `
-  <div class="card" style= "width: 18rem;">
-<div class="card-body">
-  <h5 class="card-title">${item.repoName}</h5>
-  <p class="card-text">${item.repoDescription}</p>
+  <div class="card" style= "width: 18rem; background: none;">
+<div class="card-body background: none;">
+  <h5 class="card-title" style="background: none;  color: #79c0ff;">${item.repoName}</h5>
+  <p class="card-text" style="background: none; color: #b1bac4;">${item.repoDescription}</p>
 </div>
-</div>`;
+</div> <hr>`;
   });
   printToDom("#printedRepos", printRepoString);
 };
@@ -497,7 +593,7 @@ const clearCheckBoxes = ()  =>{
 const clearNewRepositoryForm = () => {
   clearCheckBoxes();
   document.getElementById("project-name").value = '';
-  document.getElementById("project-description").value = '';
+  document.getElementById("repository-description").value = '';
 }
 
 
@@ -598,9 +694,9 @@ const newProject = (developerId) => {
     `<div class="container">
        <h2>Create a new repository</h2>
        <label for="project-name">Repository name</label>
-       <input type="text" name="project-name" id="project-name" placeholder="Repository name">
+       <input type="text" style="background: none; border: 1px solid #c9d1d9;" name="project-name" id="project-name" placeholder="Repository name">
        <label for="description">Description</label>
-       <textarea id="project-description" name="project-description" rows="3"></textarea>
+       <textarea style="background: none; border: 1px solid #c9d1d9;" id="repository-description" name="repository-description" rows="3"></textarea>
        <div class="new-repo-buttons">
          <button type="button" data-toggle="modal" data-target="#technologies-modal" 
                  id="add-technologies" class="btn btn-success">Add Technologies</button>
@@ -667,7 +763,7 @@ const projectSearch = (e) => {
 const repositorySubmit = (e) => {
   if(e.target.id == 'repository-submit') {
     let repoName = document.querySelector('#project-name').value;
-    let repoDescription = document.querySelector('#project-description').value;
+    let repoDescription = document.querySelector('#repository-description').value;
     if(repoName && repoDescription) {
       let pinned = true;
       let technologies = [0]; //default technology
@@ -709,6 +805,12 @@ const buttonListenerProjects = () => {
   document.getElementById("query").addEventListener('keyup', projectSearch);
 }
 
+const buttonListenerPackages = () => {
+  document.querySelector('#addBtn').addEventListener('click', addPackage);
+  document.querySelector('#gitHubPackages').addEventListener('click', deletePackage);
+  document.querySelector('#searchBar').addEventListener('keyup', packageSearch);
+};
+
 const buttonListenerRepo = () => {
   document.querySelector("form").addEventListener("submit", createRepo);
 };
@@ -726,7 +828,6 @@ const init = () => {
     case "/index.html":
       aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
-      newProject(0);
       buttonListenerOverview();
       break;
 
@@ -743,6 +844,7 @@ const init = () => {
 
     case "/packages.html":
       buildPackages(packages_arr);
+      buttonListenerPackages();
       break;
   }
 
@@ -750,4 +852,4 @@ const init = () => {
   
 }
 
-init()
+init();

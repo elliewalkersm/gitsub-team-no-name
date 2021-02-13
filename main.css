@@ -39,11 +39,25 @@ main {
 }
 
 .bio-sidebar {
-  margin: 20px 5% 10px 2em;
+  margin: 20px 5% 10px 3em;
+}
+
+.bio-sidebar ul {
+  list-style: none;
+  padding-inline-start: 0;
+  height: 80%;
+  top: 0;
+  left: 0;
+}
+
+.orgLogo {
+  width: 24px;
+  height: auto;
+  margin: 2px;
 }
 
 .git-content {
-  flex-basis: 60%;
+  flex-basis: 65%;
 }
 
 .repos h3, button {
@@ -62,31 +76,20 @@ main {
 
 .pinned-repos,
 .unpinned-repos {
-  margin: 20px 5% 20px 2em;
+  margin: 20px 0;
   display: flex;
   flex-flow: wrap;
-  justify-content: space-around;
   align-items: stretch;
 }
 .pinned-repos div:last-child {
   margin-right: auto;
 }
-.bio-sidebar ul {
-  list-style: none;
-  padding-inline-start: 0;
-  height: 80%;
-  top: 0;
-  left: 0;
-}
-
-.orgLogo {
-  width: 24px;
-  height: auto;
-  margin: 2px;
-}
 
 .repo-card {
-  width:  50%;
+  width:  48%;
+  border: 1px solid #c9d1d9;
+  border-radius: 6px;
+  margin: 5px;
 }
 
 .repo-card h3 {
@@ -127,15 +130,19 @@ button {
   margin: 5px 0 5px;
 }
 
-
 div.new-repo-buttons {
   display: flex;
   flex-flow: wrap;
   justify-content: space-between;
 }
+
 input, label {
   display: block;
   margin: 5px 0 5px;
+}
+
+.modal { 
+  color: black;
 }
 
 .modal input, label {
@@ -176,6 +183,26 @@ input, select, textarea{
   color:#c9d1d9;
 }
 
+/* Packages Page */
+.packagesCard {
+  border: 1px solid #C9D1D9;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+#packageTitle {
+  color: #C9D1D9;
+}
+
+#packageDescription {
+  color: #C9D1D9;
+}
+
+#searchBar {
+  color: #C9D1D9;
+}
+
+/* End Packages Page */
 @media (max-width: 660px) {
   .footer-container a {
     display: none;
