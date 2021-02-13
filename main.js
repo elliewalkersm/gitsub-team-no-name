@@ -196,15 +196,6 @@ const developers_arr = [
 const repos_Arr = [];
 
 
-
-
-
-
-
-
-
-
-
 // PACKAGES PAGE
 // Packages array
 const packages_arr = [
@@ -245,7 +236,7 @@ const buildPackages = (arr) => {
   let domString = " ";
   console.log(arr);
   for (let i = 0; i < arr.length; i++) {
-    domString += `<div class="card">
+    domString += `<div class="packagesCard" style="width: 15rem; background: none;">
     <div class="card-body">
       <h5 class="card-title">${arr[i].title}</h5>
       <p class="card-text">${arr[i].description}</p>
@@ -278,7 +269,7 @@ const addPackage = (e) => {
   packages_arr.push(obj);
   buildPackages(packages_arr);
 
-  document.querySelector('#packagesForm').reset();
+  document.querySelector('form').reset();
 };
 
 const deletePackage = (e) => {
@@ -299,10 +290,6 @@ const packageSearch = (e) => {
 };
 
 // END PACKAGES PAGE
-
-
-
-
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
