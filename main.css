@@ -183,6 +183,26 @@ input, select, textarea{
   color:#c9d1d9;
 }
 
+/* Packages Page */
+.packagesCard {
+  border: 1px solid #C9D1D9;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+#packageTitle {
+  color: #C9D1D9;
+}
+
+#packageDescription {
+  color: #C9D1D9;
+}
+
+#searchBar {
+  color: #C9D1D9;
+}
+
+/* End Packages Page */
 @media (max-width: 660px) {
   .footer-container a {
     display: none;
