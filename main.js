@@ -15,7 +15,7 @@ const badges = [
 ];
 
 //Array of common technologies
-const technologies = [
+const technologies_arr = [
   {
     techID: 0,
     name: "HTML",
@@ -84,6 +84,9 @@ const technologies = [
   },
 ];
 
+//Global empty array to store technology selection
+const tempTechnologies = [];
+
 //Array of organizations:
 const organizations_arr = [
   {
@@ -120,6 +123,11 @@ const developers_arr = [
     photo: "./images/HarryPotter.jpg",
     gitHubName: "MagicHarry",
     bio: "Creating magic at the keyboard.",
+    longBioHeading: "developer, wizard warrior, loyal friend",
+    longBioText: "I'm a developer that can create your application as if by magic. \
+                  I enjoy working with javascript, css, and of course, wizardscript. \
+                  At the Nashville Software school, I help inspire creations.",
+
     company: "",
     geoLocation: "Gryffindor at Hogwarts",
     website: "harrypottershop.com",
@@ -129,63 +137,57 @@ const developers_arr = [
     repositories: [
       {
         repoID: 0,
-        pinned: true,
+        pinned: false,
         repoName: "sorting-hat",
-        repoDescription:
-          "Mimics the Sorting Hat of J.K. Rowlings Harry Potter Series." +
-          " Sorts names into the four houses of Hogwarts",
-        technologies: [1, 0, 2],
+        repoDescription: "Mimics the Sorting Hat of J.K. Rowlings Harry Potter Series." +
+                         " Sorts names into the four houses of Hogwarts",
+        technologies: [2, 1, 3], 
       },
       {
         repoID: 1,
         pinned: true,
         repoName: "magic-wand",
-        repoDescription:
-          "Challenges the user to a series of questions to see if they are ready to handle a magic wand.",
-        technologies: [0, 1, 2],
+        repoDescription: "Challenges the user to a series of questions to see if they are ready to handle a magic wand.",
+        technologies: [1, 2, 3],
       },
       {
         repoID: 2,
         pinned: true,
         repoName: "broomstick",
-        repoDescription:
-          "Aids user in finding the ideal broomstick, with a list of best candidate sticks and their sellers",
-        technologies: [3, 1, 5],
+        repoDescription: "Aids user in finding the ideal broomstick, with a list of best candidate sticks and their sellers",
+        technologies: [4, 2, 6],
       },
       {
         repoID: 3,
-        pinned: true,
+        pinned: false,
         repoName: "spellbound",
-        repoDescription:
-          "Electronic spellbook. Helps user find the right spell in a jiffy. To be used with caution.",
-        technologies: [5, 2, 8],
+        repoDescription: "Electronic spellbook. Helps user find the right spell in a jiffy. To be used with caution.",
+        technologies: [6, 3, 9],
       },
       {
         repoID: 4,
         pinned: true,
         repoName: "tealeaves",
-        repoDescription:
-          "Online ordering of tea, with maps and hours of your favorite tea rooms.",
-        technologies: [0, 1, 2],
+        repoDescription: "Online ordering of tea, with maps and hours of your favorite tea rooms.",
+        technologies: [1, 2, 3],
       },
       {
         repoID: 5,
         pinned: true,
         repoName: "mentormatic",
-        repoDescription:
-          "App to help upcoming wizards find their best match for a mentor",
-        technologies: [7, 2, 3],
+        repoDescription: "App to help upcoming wizards find their best match for a mentor",
+        technologies: [8, 3, 2],
       },
       {
         repoID: 6,
         pinned: true,
         repoName: "c yourself",
         repoDescription: "Tutorial app to aid in learning c.",
-        technologies: [6, 0, 1],
-      },
-    ], //end of Harry Potter's repositories
-    projects: {},
-  },
+        technologies: [7, 1, 2],
+      }
+    ],  //end of Harry Potter's repositories
+    projects: { }
+   }
 ];
 
 const repos_Arr = [];
@@ -218,8 +220,8 @@ const bioHeading = (userBio) => {
 const bioBadges = (userBio) => {
   let bioString = `<h4>Highlights</h4>
      <ul class="highlights">`;
-  for (let i = 0; i < userBio.badges.length; i++) {
-    badges[userBio.badges[i]].badgeName;
+  for(let i = 0; i< userBio.badges.length; i++) {
+    //console.log(badges[userBio.badges[i]].badgeName);
     bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
   }
   return bioString;
@@ -228,12 +230,10 @@ const bioBadges = (userBio) => {
 const bioOrganizations = (userBio) => {
   let bioString = `<h4>Organizations</h4>
      <ul class="organizations">`;
-  for (let i = 0; i < userBio.organizations.length; i++) {
-    organizations_arr[userBio.organizations[i]].orgName;
-    //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
-    bioString += `<img src="${
-      organizations_arr[userBio.organizations[i]].orgLogo
-    }" class="orgLogo">`;
+  for(let i = 0; i < userBio.organizations.length; i++) {
+    //console.log(organizations_arr[userBio.organizations[i]].orgName);
+  //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
+    bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
   return bioString;
 };
@@ -252,11 +252,73 @@ const paintBio = (userBio) => {
 };
 
 const customizePinsButton = () => {
-  let pinString = `<button type="button" id="customize-pins" class="btn btn-success">Customize your pins</button>`;
+  let pinString = 
+    `<button type="button" data-toggle="modal" data-target="#pinned-modal" 
+      id="customize-pins" class="btn btn-success">Customize your pins</button>`;
   return pinString;
 };
 
-//See is user has pinned any repositories
+//Create about panel
+const aboutDeveloper = (developer) => {
+  let aboutString = 
+   `<div class"card bg-dark text-white about-card">
+      <h4 class="card-title">About Me</h4>
+      <div class="about-main">
+      <h5>${developer.longBioHeading}</h5>
+      <p class="card-text about-text">${developer.longBioText}</p>
+    </div>`;
+  printToDom("#about-developer", aboutString);
+}
+
+
+
+//modal dialog box from bootstrap components
+const pinnedDialog = (developer) => {
+  //console.log(developer.keyId);
+  let pinnedString = 
+      `<div class="modal" id="pinned-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" id="key_ID${developer.keyId}">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" id="x-close-pinned-dialog" >&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul class="check-box">`;
+              //display list of repositories with checkboxes
+              let i = 0;
+              let checked = '';
+              for(let item of developer.repositories) {
+                if(item.pinned) {
+                  checked = 'checked';
+                }
+                pinnedString +=
+                 `<li>
+                     <input type="checkbox" id="checkbox_${item.repoID}" name="checkbox_${item.repoName}"
+                      value="true" ${checked}>
+                    <label for="checkbox_${item.repoID}">${item.repoName}</label>
+                  </li>`;
+                checked = '';
+              }
+   pinnedString +=
+              `</ul>
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="save-pinned-dialog">Save changes</button>
+              <button type="button" class="btn btn-secondary" id="close-pinned-dialog" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  return pinnedString;
+}
+
+
+
+//See if user has pinned any repositories
 const hasPinned = (developer) => {
   let pinned = false;
   for (let item of developer.repositories) {
@@ -272,29 +334,41 @@ const hasPinned = (developer) => {
 const paintPinned = (developer) => {
   let pinned = "pinned-repose";
   let pinButton = customizePinsButton();
-  let repoString = "";
-  if (hasPinned(developer)) {
-    repoString = `<h3>Pinned</h3>${pinButton}
-                       <div class="pinned-repos">`;
+  let repoString =  `<div class="repo-header">`;
+  let has_pinned = hasPinned(developer);
+  if (has_pinned){
+    repoString +=  `<h3>Pinned Repositories</h3>${pinButton}
+                   </div>
+                   <div class="pinned-repos">`;
   } else {
-    repoString = `<h3>Repositories</h3>${pinButton}
-                    <div class="unpinned-repos">`;
+    repoString += `<h3>Repositories</h3>${pinButton}
+                  </div>
+                  <div class="unpinned-repos">`;
   }
+  //created pinned dialog button
+  repoString += `<div class="repo-dialog" id="pinned-dialog"></div>`;
+  repoString += pinnedDialog(developer);
+  let color = '';
   let techIndex = 0; //tells us the most prominent tech used in the repository
   let i = 0; //limit to six repositories
-  for (let item of developer.repositories) {
-    if (i < 6) {
+  for(let item of developer.repositories) {
+    if(i < 6 && ((item.pinned && has_pinned) || !has_pinned)) {
       techIndex = item.technologies[0];
+      //console.log("tech index: " + techIndex);
+      color = technologies_arr[techIndex].color;
+      //console.log(color);
       //console.log(technologies[techIndex].name);
       //console.log(technologies[techIndex].color);
       repoString += `<div class="repo-card">
                           <div class="card-body">
                             <h3>${item.repoName}</h3>
-                            <p>${item.repoDescription}</p>
-                            <div class="tech-type" style="background-color: ${technologies[techIndex].color}"></div>
-                            <p class="tech-name">${technologies[techIndex].name}</p>
-                          </div>
-                      </div>`;
+                            <p class="repo-description">${item.repoDescription}</p>`;
+        if(techIndex) {
+          repoString +=   `<div class="tech-type" style="background-color: ${technologies_arr[techIndex].color}"></div>
+                            <p class="tech-name">${technologies_arr[techIndex].name}</p>`;
+        }
+          repoString += `</div>
+                       </div>`;
       i++; //limit to six repositories
     }
   }
@@ -351,21 +425,205 @@ const createRepo = (e) => {
   document.querySelector("#newForm").reset();
 };
 
-const newProject = (developerId) => {
-  let projStr = "";
-  projStr = `<div class="container">
-     <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
-      <h2>Create a new project</h2>
-      <label for="project-name">Project board name</label>
-      <input type="text" name="project-name" id="project-name" placeholder="Project board name">
-      <label for="description">Description</label>
-      <textarea id="project-description" name="project-description" rows="3" cols="50"></textarea>
-      <button type="button" id="project-submit" class="btn btn-success">Create project</button>
-    </div>`;
+//updates which repositories are pinned using the checkbox form.
+const savePinned = (e) => {
+  //get id of form.
+  let develId = e.srcElement.parentElement.parentElement.id;
+  //console.log("develId = " + develId);
+  let pinned_form = document.getElementById(develId);
+  //extract developer keyId from id of form.
+  let develKey = (develId.substr(6));
+  let element = '';
+  for(let item of developers_arr[develKey].repositories){
+    //console.log(item.repoID);
+    //get the corresponding checkbox for each repository
+    element = document.getElementById(`checkbox_${item.repoID}`);
+    //console.log(element);
+    if(element.checked) {
+      item.pinned = true;
+    } else {
+      item.pinned = false;
+    }
+    //console.log(item);
+  }
+  paintPinned(developers_arr[develKey]);
+}
 
-  printToDom("#new-project", projStr);
+//Pinned dialog box event listener
+const listenPinnedDialog = (e) => {
+  switch(e.target.id) {
+    case "customize-pins" :
+      document.querySelector('#pinned-modal').style.display = "block";
+      break;
+    case "x-close-pinned-dialog" :
+    case "close-pinned-dialog" :
+      document.querySelector('#pinned-modal').style.display = "none";
+      break;
+    case "save-pinned-dialog" :
+      savePinned(e);
+      document.querySelector('#pinned-modal').style.display = "none";
+      break;
+  }
+}
+
+//fetch the technologies saved
+const saveTechnologiesSelections = ()  => {
+//  console.log(e.srcElement.parentElement.parentElement.id);
+  let checkbox = ''; 
+  for(item of technologies_arr) {
+    checkbox = document.getElementById(`tech-checkbox_${item.techID}`);
+    //console.log(item.techID);
+    if(checkbox.checked) {
+      tempTechnologies.push(item.techID);
+    }
+  }
+  //console.log(tempTechnologies);
+  //return(temp_arr);
+}
+
+const clearCheckBoxes = ()  =>{
+  let checkbox = ''; 
+  for(item of technologies_arr) {
+    checkbox = document.getElementById(`tech-checkbox_${item.techID}`);
+    checkbox.checked = false;
+  }
+}
+
+const clearNewRepositoryForm = () => {
+  clearCheckBoxes();
+  document.getElementById("project-name").value = '';
+  document.getElementById("project-description").value = '';
+}
+
+
+//Event listener for new repository form
+const listenNewRepository = (e) => {
+  //console.log(e.target.id);
+  let list = document.querySelector('#tech-modal');
+  switch(e.target.id) {
+    //toggle tech list check boxes
+    case "add-technologies" :
+      if(list.style.display === '') {
+        list.style.display = "block";
+      } else if(list.style.display === "block") {
+        list.style.display = '';
+      } 
+      break;
+    case "x-close-tech-dialog" :
+    case "close-tech-dialog"   :
+      list.style.display = '';
+      break;
+    case "save-tech-dialog" :
+      //console.log("save-tech-dialog hit");
+      saveTechnologiesSelections();
+      list.style.display = '';
+      break;
+
+    default: 
+      break;
+  }
+}
+
+//Create checkbox list
+const newProjectTechList = () => {
+  let techStr = `<ul class="check-box">`;
+  //display technologies list
+  let i = 0;
+  for(let item of technologies_arr) {
+    techStr += 
+      `<li>
+        <input type="checkbox" id="tech-checkbox_${item.techID}" name="tech-checkbox_${item.name}"
+        value="true">
+      <label for="tech-checkbox_${item.name}">${item.name}</label>`;
+  }
+  techStr += `</ul>`;
+  return techStr;
+}
+
+//Create modal dialog with checkboxes listing technologies
+const techDialog = () => {
+  let techString = 
+    `<div class="modal" id="tech-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" id="tech-modal-dialog">
+          <div class="modal-header">
+            <h5 class="modal-title">Select technologies in your repository</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" id="x-close-tech-dialog" >&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">`
+   techString += newProjectTechList();
+              
+   techString +=
+          `</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="save-tech-dialog">Save changes</button>
+            <button type="button" class="btn btn-secondary" id="close-tech-dialog" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+      
+  return techString;
+}
+
+//Create new repository form
+const newProject = (developerId) => {
+  let projStr = '';
+  projStr = 
+    `<div class="container">
+       <h2>Create a new repository</h2>
+       <label for="project-name">Repository name</label>
+       <input type="text" name="project-name" id="project-name" placeholder="Repository name">
+       <label for="description">Description</label>
+       <textarea id="project-description" name="project-description" rows="3"></textarea>
+       <div class="new-repo-buttons">
+         <button type="button" data-toggle="modal" data-target="#technologies-modal" 
+                 id="add-technologies" class="btn btn-success">Add Technologies</button>
+         <div class="drop-down" id="tech-list-drop-down">`;
+           projStr += techDialog();
+           projStr +=
+        `</div>
+         <button type="button" id="repository-submit" class="btn btn-success">Create repository</button>
+       </div>
+     </div>`;
+
+  printToDom("#new-pinned-repository", projStr);
 };
 
+//Add pinned repository
+const repositorySubmit = (e) => {
+  if(e.target.id == 'repository-submit') {
+    let repoName = document.querySelector('#project-name').value;
+    let repoDescription = document.querySelector('#project-description').value;
+    if(repoName && repoDescription) {
+      let pinned = true;
+      let technologies = [0]; //default technology
+      if(tempTechnologies.length) {
+        //console.log("has technologies");
+        //console.log(tempTechnologies);
+        technologies = [...tempTechnologies]; //save technologies from modal dial
+      } 
+      tempTechnologies.length = 0; //Clear the array
+      let repoID = developers_arr[0].repositories.length; 
+      //console.log(repoID);
+      const new_repository = {
+        repoID,
+        pinned,
+        repoName,
+        repoDescription,
+        technologies
+      }
+      //add pinned repository to top of the list
+      developers_arr[0].repositories.unshift(new_repository);
+      //clear the form
+      clearNewRepositoryForm();
+      //paint repositories
+      paintPinned(developers_arr[0]);  
+    }
+  }
+} 
 const projectSubmit = (e) => {
   if (e.target.id == "project-submit") {
     console.log(document.querySelector("#project-name").value);
@@ -373,24 +631,31 @@ const projectSubmit = (e) => {
   }
 };
 
-const buttonListener = () => {
-  document
-    .getElementById("new-project")
-    .addEventListener("click", projectSubmit);
+const buttonListenerRepo = () => {
   document.querySelector("form").addEventListener("submit", createRepo);
 };
 
+const buttonListenerOverview = () => {
+  document.getElementById('gitHubRepos').addEventListener('click', listenPinnedDialog);
+  document.getElementById('new-pinned-repository').addEventListener('click', listenNewRepository);
+  document.getElementById('new-pinned-repository').addEventListener('click', repositorySubmit);
+}
+
 const init = () => {
+  paintBio(developers_arr[0]);
   const page = window.location.pathname;
   switch (page) {
     case "/index.html":
+      aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
       newProject(0);
+      buttonListenerOverview();
       break;
 
     case "/repositories.html":
       newRepo(repos_Arr);
       printRepo(repos_Arr);
+      buttonListenerRepo();
       break;
 
     case "/projects.html":
@@ -402,8 +667,8 @@ const init = () => {
       break;
   }
 
-  paintBio(developers_arr[0]);
-  buttonListener();
-};
+  // paintBio(developers_arr[0]);
+  
+}
 
-init();
+init()
