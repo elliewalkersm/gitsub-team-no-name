@@ -4,10 +4,11 @@ html {
 }
 
 body {
-  background-color: antiquewhite;
+  background-color: #0d1117;
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  color: #c9d1d9;
 }
 
 .navbar {
@@ -169,6 +170,10 @@ ul.footer-list {
 }
 .footer-list li {
   margin: 5px 1vw;
+}
+
+input, select, textarea{
+  color:#c9d1d9;
 }
 
 @media (max-width: 660px) {

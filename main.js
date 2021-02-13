@@ -1,4 +1,7 @@
-// console.log("Team No-Name");
+console.log("Team No-Name");
+const projectsArr = [];
+
+
 
 //Array of common Badges / Highlights
 const badges = [
@@ -186,11 +189,13 @@ const developers_arr = [
         technologies: [7, 1, 2],
       }
     ],  //end of Harry Potter's repositories
-    projects: { }
-   }
+    projects: {}
+  }
 ];
 
 const repos_Arr = [];
+
+
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
@@ -569,6 +574,24 @@ const techDialog = () => {
 }
 
 //Create new repository form
+const makeNewProject = (developerId) => {
+  let projStr = '';
+  projStr = 
+  `<form id="newProject">
+      <div class="container">
+     <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
+      <h2>Create a new project</h2>
+      <label for="project-name">Project board name</label>
+      <input style="background: none; border: 1px solid #c9d1d9;" type="text" name="project-name" id="project-name" placeholder="Project board name">
+      <label for="description">Description</label>
+      <textarea style="background: none;border: 1px solid #c9d1d9; " id="project-description" name="project-description" rows="3" cols="50"></textarea>
+      <button type="button" id="project-submit" class="btn btn-success">Create project</button>
+      </div>
+    </form>`;
+
+  printToDom("#new-project", projStr);
+};
+
 const newProject = (developerId) => {
   let projStr = '';
   projStr = 
@@ -591,6 +614,54 @@ const newProject = (developerId) => {
 
   printToDom("#new-pinned-repository", projStr);
 };
+
+//Retrieve Project info from the New Project Form
+const createNewProject = (e) => {
+  e.preventDefault();
+  let obj = {
+    projectName: document.querySelector("#project-name").value,
+    projectDescription: document.querySelector("#project-description").value,
+    projectId: e.target.id 
+  }
+  projectsArr.push(obj);
+  console.log(projectsArr);
+  projectPainter(projectsArr);
+  document.querySelector('#newProject').reset();
+
+}
+
+const projectPainter = (arr) => {
+  let domString = ""
+  for (let i = 0; i < arr.length; i++) {
+    domString +=
+      `<div class="card-body-flex-container" id=${arr[i].projectId}>
+        <p class="card-text" id="projectName">${arr[i].projectName}</p>
+        <p class="card-text bg-gray border-bottom" id="projectDescription">${arr[i].projectDescription}</p>
+      </div>`
+
+    printToDom("#project-results", domString);
+
+  }
+}
+
+
+const projectSearch = (e) => {
+  const searchString = e.target.value.toLowerCase();
+
+  const filteredCharacters = projectsArr.filter((arr) => {
+    return (
+      arr.projectName.toLowerCase().includes(searchString)
+    );
+  });
+  projectPainter(filteredCharacters);
+  // e.preventDefault();
+};
+
+//DROPDOWN SORTING FUNCTION
+
+
+
+
 
 //Add pinned repository
 const repositorySubmit = (e) => {
@@ -631,6 +702,13 @@ const projectSubmit = (e) => {
   }
 };
 
+const buttonListenerProjects = () => {
+  // document.getElementById('new-project').addEventListener('click', projectSubmit); FOR SOME REASON THIS AUTO PRINTED THE NEW PROJECT ON CLICKING INTO THAT DIV
+  document.getElementById('project-submit').addEventListener('click', projectSubmit); //THIS WAITS UNTIL YOU HAVE TARGETED THE SPECIFIC BUTTON 'PROJECT-SUBMIT' TO RUN THE PROJECTSUBMIT FUNCTION
+  document.getElementById('project-submit').addEventListener('click', createNewProject);
+  document.getElementById("query").addEventListener('keyup', projectSearch);
+}
+
 const buttonListenerRepo = () => {
   document.querySelector("form").addEventListener("submit", createRepo);
 };
@@ -659,7 +737,8 @@ const init = () => {
       break;
 
     case "/projects.html":
-      newProject(0);
+      makeNewProject(0);
+      buttonListenerProjects();
       break;
 
     case "/packages.html":
