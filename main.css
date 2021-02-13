@@ -4,10 +4,11 @@ html {
 }
 
 body {
-  background-color: antiquewhite;
+  background-color: #0d1117;
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  color: #c9d1d9;
 }
 
 .navbar {
@@ -38,18 +39,7 @@ main {
 }
 
 .bio-sidebar {
-  margin: 20px 5% 10px 2em;
-}
-
-.git-content {
-  flex-basis: 60%;
-}
-
-.pinned-repos {
-  margin: 20px 5% 20px 2em;
-  display: flex;
-  flex-flow: wrap;
-  justify-content space-around;
+  margin: 20px 5% 10px 3em;
 }
 
 .bio-sidebar ul {
@@ -60,8 +50,46 @@ main {
   left: 0;
 }
 
+.orgLogo {
+  width: 24px;
+  height: auto;
+  margin: 2px;
+}
+
+.git-content {
+  flex-basis: 65%;
+}
+
+.repos h3, button {
+  display: inline-block;
+}
+
+.about-main {
+  margin: 0 0 10px;
+}
+
+.repo-header {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+.pinned-repos,
+.unpinned-repos {
+  margin: 20px 0;
+  display: flex;
+  flex-flow: wrap;
+  align-items: stretch;
+}
+.pinned-repos div:last-child {
+  margin-right: auto;
+}
+
 .repo-card {
-  width:  50%;
+  width:  48%;
+  border: 1px solid #c9d1d9;
+  border-radius: 6px;
+  margin: 5px;
 }
 
 .repo-card h3 {
@@ -76,17 +104,53 @@ div.tech-type {
   box-sizing: border-box;
   display: inline-block;
 }
+div.tech-type.no-circle {
+  border: none;
+}
 
 p.tech-name {
   display: inline-block;
 }
 
-input, label, textarea {
-  display: block;
+.create-project .container {
+  max-width: 600px;
 }
+
+textarea {
+  display: block;
+  width: 100%;
+}
+
+div.drop-down {
+  display: inline-block;
+}
+
 
 button {
   margin: 5px 0 5px;
+}
+
+div.new-repo-buttons {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+input, label {
+  display: block;
+  margin: 5px 0 5px;
+}
+
+.modal { 
+  color: black;
+}
+
+.modal input, label {
+  display: inline-block;
+}
+
+ul.check-box {
+  list-style: none;
 }
 
 footer {
@@ -113,6 +177,10 @@ ul.footer-list {
 }
 .footer-list li {
   margin: 5px 1vw;
+}
+
+input, select, textarea{
+  color:#c9d1d9;
 }
 
 @media (max-width: 660px) {
