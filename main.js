@@ -1,4 +1,7 @@
 console.log("Team No-Name");
+const projectsArr = [];
+
+
 
 //Array of common Badges / Highlights
 const badges = [
@@ -183,7 +186,7 @@ const developers_arr = [
   }
 ];
 
-const projectsArr = [];
+
 
 
 const printToDom = (ID, string) => {
@@ -309,9 +312,9 @@ const newProject = (developerId) => {
      <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
       <h2>Create a new project</h2>
       <label for="project-name">Project board name</label>
-      <input type="text" name="project-name" id="project-name" placeholder="Project board name">
+      <input style="background: none; border: 1px solid #c9d1d9;" type="text" name="project-name" id="project-name" placeholder="Project board name">
       <label for="description">Description</label>
-      <textarea id="project-description" name="project-description" rows="3" cols="50"></textarea>
+      <textarea style="background: none;border: 1px solid #c9d1d9; " id="project-description" name="project-description" rows="3" cols="50"></textarea>
       <button type="button" id="project-submit" class="btn btn-success">Create project</button>
       </div>
     </form>`;
@@ -324,7 +327,8 @@ const createNewProject = (e) => {
   e.preventDefault();
   let obj = {
     projectName: document.querySelector("#project-name").value,
-    projectDescription: document.querySelector("#project-description").value
+    projectDescription: document.querySelector("#project-description").value,
+    projectId: e.target.id 
   }
   projectsArr.push(obj);
   console.log(projectsArr);
@@ -337,9 +341,9 @@ const projectPainter = (arr) => {
   let domString = ""
   for (let i = 0; i < arr.length; i++) {
     domString +=
-      `<div class="card-body">
-        <p class="card-text" id="studentName">${arr[i].projectName}</p>
-        <p class="card-text" id="schoolHouse">${arr[i].projectDescription}</p>
+      `<div class="card-body-flex-container" id=${arr[i].projectId}>
+        <p class="card-text" id="projectName">${arr[i].projectName}</p>
+        <p class="card-text bg-gray border-bottom" id="projectDescription">${arr[i].projectDescription}</p>
       </div>`
 
     printToDom("#project-results", domString);
@@ -349,17 +353,37 @@ const projectPainter = (arr) => {
 
 
 const projectSubmit = (e) => {
-  if (e.target.id == 'button') {
+  if (e.target.id === 'button') {
     console.log(document.querySelector('#project-name').value);
     console.log(document.querySelector('#project-description').value);
   }
   //  projectPainter (projectsArray);
 }
 
+
+
+const projectSearch = (e) => {
+  const searchString = e.target.value.toLowerCase();
+
+  const filteredCharacters = projectsArr.filter((arr) => {
+    return (
+      arr.projectName.toLowerCase().includes(searchString)
+    );
+  });
+  projectPainter(filteredCharacters);
+  // e.preventDefault();
+};
+
+//DROPDOWN SORTING FUNCTION
+
+
+
+
 const buttonListener = () => {
   // document.getElementById('new-project').addEventListener('click', projectSubmit); FOR SOME REASON THIS AUTO PRINTED THE NEW PROJECT ON CLICKING INTO THAT DIV
   document.getElementById('project-submit').addEventListener('click', projectSubmit); //THIS WAITS UNTIL YOU HAVE TARGETED THE SPECIFIC BUTTON 'PROJECT-SUBMIT' TO RUN THE PROJECTSUBMIT FUNCTION
   document.getElementById('project-submit').addEventListener('click', createNewProject);
+  document.getElementById("query").addEventListener('keyup', projectSearch);
 }
 
 
