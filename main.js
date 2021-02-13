@@ -726,7 +726,6 @@ const init = () => {
     case "/index.html":
       aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
-      newProject(0);
       buttonListenerOverview();
       break;
 
