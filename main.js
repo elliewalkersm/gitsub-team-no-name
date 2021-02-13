@@ -1,4 +1,7 @@
-// console.log("Team No-Name");
+console.log("Team No-Name");
+const projectsArr = [];
+
+
 
 //Array of common Badges / Highlights
 const badges = [
@@ -186,11 +189,120 @@ const developers_arr = [
         technologies: [7, 1, 2],
       }
     ],  //end of Harry Potter's repositories
-    projects: { }
-   }
+    projects: {}
+  }
 ];
 
 const repos_Arr = [];
+
+
+
+
+
+
+
+
+
+
+
+// PACKAGES PAGE
+// Packages array
+const packages_arr = [
+  {
+    title: 'Docker',
+    description: 'A software platform used for building applications based on containers -- small and lightweight execution environments.',
+    id: 1,
+  },
+  {
+    title: 'Apache Maven',
+    description: 'A default package manager used for the Java programming lanuage and the Java runtime environment.',
+    id: 2,
+  },
+  {
+    title: 'NuGet',
+    description: 'A free and open source package manager used for the Microsoft development platforms including .NET.', 
+    id: 3,
+  },
+  {
+    title: 'RubyGems',
+    description: 'A standard format for distributing Ruby programs and libraries used for the Ruby programming language.',
+    id: 4,
+  },
+  {
+    title: 'npm',
+    description: 'A package manager for JavaScript, included with Node.js. npm makes it easy for developers to share and reuse code.',
+    id: 5,
+  },
+  {
+    title: 'Containers',
+    description: 'A single place for your team to manage Docker images and decide who can see and access your images.',
+    id: 6,
+  }
+];
+
+// Package card builder
+const buildPackages = (arr) => {
+  let domString = " ";
+  console.log(arr);
+  for (let i = 0; i < arr.length; i++) {
+    domString += `<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">${arr[i].title}</h5>
+      <p class="card-text">${arr[i].description}</p>
+      <button type="button" class="btn btn-secondary">Learn More</button>
+      <button type="button" class="btn btn-danger" id=${arr[i].id}>Delete</button>
+    </div>
+  </div>`;
+  };
+
+  printToDom("#gitHubPackages", domString);
+};
+
+const addPackage = (e) => {
+  e.preventDefault();
+
+  const title = document.querySelector('#packageTitle').value;
+  const description = document.querySelector('#packageDescription').value;
+  const packageId = packages_arr
+    .map((package) => package.id)
+    .sort((a,b) => a - b);
+
+  const id = packageId.length ? packageId[packageId.length - 1] + 1 : 1;
+
+  const obj = {
+    title,
+    description,
+    id,
+  };
+
+  packages_arr.push(obj);
+  buildPackages(packages_arr);
+
+  document.querySelector('#packagesForm').reset();
+};
+
+const deletePackage = (e) => {
+  const targetType = e.target.type;
+  const targetId = Number(e.target.id);
+  
+  if (targetType === 'button') {
+    const packageIndex = packages_arr.findIndex(package => package.id === targetId);
+    let deletedPackage = packages_arr.splice(packageIndex, 1);
+  }
+  buildPackages(packages_arr);
+};
+
+const packageSearch = (e) => {
+  const searchString = e.target.value;
+  const filteredPackages = packages_arr.filter(package => package.title.includes(searchString));
+  buildPackages(filteredPackages);
+};
+
+// END PACKAGES PAGE
+
+
+
+
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
@@ -383,13 +495,13 @@ const newRepo = () => {
   let createRepoString = "";
   createRepoString = `<form id="newForm">
   <div class="form-group">
-    <label for="nameFormControlInput1">Repository name</label>
-    <input type="name" class="col-md-4 rounded-3 border-1" id="createRepoName" value="" required></div>
+    <label for="nameFormControlInput1" style="color: #f0f6fc;">Repository name</label>
+    <input type="name"; class="col-md-4 rounded-3 border-1" id="createRepoName" value="" style="background: none; color: #f0f6fc;" required></div>
   <div class="form-group">
-  <div id="repoNameHelp" class="form-text">Great reposstory names are short and memorable. Need inspiration? How about reimagined-disco?
+  <div id="repoNameHelp" class="form-text" style="color: #f0f6fc;">Great repository names are short and memorable. Need inspiration? How about reimagined-disco?
 </div>
-    <label for="descriptionText">Description (optional)</label>
-    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1"></textarea>
+    <label for="descriptionText" style="color: #f0f6fc;">Description (optional)</label>
+    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1" style="background: none;"></textarea>
   </div>
   <hr></hr>
   <button type="submit" id="repoSubmit" class="btn btn-success">Create repository</button>
@@ -403,12 +515,12 @@ const printRepo = (taco) => {
   let printRepoString = "";
   repos_Arr.forEach((item, i) => {
     printRepoString += `
-  <div class="card" style= "width: 18rem;">
-<div class="card-body">
-  <h5 class="card-title">${item.repoName}</h5>
-  <p class="card-text">${item.repoDescription}</p>
+  <div class="card" style= "width: 18rem; background: none;">
+<div class="card-body background: none;">
+  <h5 class="card-title" style="background: none;  color: #79c0ff;">${item.repoName}</h5>
+  <p class="card-text" style="background: none; color: #b1bac4;">${item.repoDescription}</p>
 </div>
-</div>`;
+</div> <hr>`;
   });
   printToDom("#printedRepos", printRepoString);
 };
@@ -569,6 +681,24 @@ const techDialog = () => {
 }
 
 //Create new repository form
+const makeNewProject = (developerId) => {
+  let projStr = '';
+  projStr = 
+  `<form id="newProject">
+      <div class="container">
+     <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
+      <h2>Create a new project</h2>
+      <label for="project-name">Project board name</label>
+      <input style="background: none; border: 1px solid #c9d1d9;" type="text" name="project-name" id="project-name" placeholder="Project board name">
+      <label for="description">Description</label>
+      <textarea style="background: none;border: 1px solid #c9d1d9; " id="project-description" name="project-description" rows="3" cols="50"></textarea>
+      <button type="button" id="project-submit" class="btn btn-success">Create project</button>
+      </div>
+    </form>`;
+
+  printToDom("#new-project", projStr);
+};
+
 const newProject = (developerId) => {
   let projStr = '';
   projStr = 
@@ -591,6 +721,54 @@ const newProject = (developerId) => {
 
   printToDom("#new-pinned-repository", projStr);
 };
+
+//Retrieve Project info from the New Project Form
+const createNewProject = (e) => {
+  e.preventDefault();
+  let obj = {
+    projectName: document.querySelector("#project-name").value,
+    projectDescription: document.querySelector("#project-description").value,
+    projectId: e.target.id 
+  }
+  projectsArr.push(obj);
+  console.log(projectsArr);
+  projectPainter(projectsArr);
+  document.querySelector('#newProject').reset();
+
+}
+
+const projectPainter = (arr) => {
+  let domString = ""
+  for (let i = 0; i < arr.length; i++) {
+    domString +=
+      `<div class="card-body-flex-container" id=${arr[i].projectId}>
+        <p class="card-text" id="projectName">${arr[i].projectName}</p>
+        <p class="card-text bg-gray border-bottom" id="projectDescription">${arr[i].projectDescription}</p>
+      </div>`
+
+    printToDom("#project-results", domString);
+
+  }
+}
+
+
+const projectSearch = (e) => {
+  const searchString = e.target.value.toLowerCase();
+
+  const filteredCharacters = projectsArr.filter((arr) => {
+    return (
+      arr.projectName.toLowerCase().includes(searchString)
+    );
+  });
+  projectPainter(filteredCharacters);
+  // e.preventDefault();
+};
+
+//DROPDOWN SORTING FUNCTION
+
+
+
+
 
 //Add pinned repository
 const repositorySubmit = (e) => {
@@ -631,6 +809,19 @@ const projectSubmit = (e) => {
   }
 };
 
+const buttonListenerProjects = () => {
+  // document.getElementById('new-project').addEventListener('click', projectSubmit); FOR SOME REASON THIS AUTO PRINTED THE NEW PROJECT ON CLICKING INTO THAT DIV
+  document.getElementById('project-submit').addEventListener('click', projectSubmit); //THIS WAITS UNTIL YOU HAVE TARGETED THE SPECIFIC BUTTON 'PROJECT-SUBMIT' TO RUN THE PROJECTSUBMIT FUNCTION
+  document.getElementById('project-submit').addEventListener('click', createNewProject);
+  document.getElementById("query").addEventListener('keyup', projectSearch);
+}
+
+const buttonListenerPackages = () => {
+  document.querySelector('#addBtn').addEventListener('click', addPackage);
+  document.querySelector('#gitHubPackages').addEventListener('click', deletePackage);
+  document.querySelector('#searchBar').addEventListener('keyup', packageSearch);
+};
+
 const buttonListenerRepo = () => {
   document.querySelector("form").addEventListener("submit", createRepo);
 };
@@ -659,11 +850,13 @@ const init = () => {
       break;
 
     case "/projects.html":
-      newProject(0);
+      makeNewProject(0);
+      buttonListenerProjects();
       break;
 
     case "/packages.html":
       buildPackages(packages_arr);
+      buttonListenerPackages();
       break;
   }
 
@@ -671,4 +864,4 @@ const init = () => {
   
 }
 
-init()
+init();
