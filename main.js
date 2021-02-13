@@ -125,6 +125,11 @@ const developers_arr = [
     photo: "./images/HarryPotter.jpg",
     gitHubName: "MagicHarry",
     bio: "Creating magic at the keyboard.",
+    longBioHeading: "developer, wizard warrior, loyal friend",
+    longBioText: "I'm a developer that can create your application as if by magic. \
+                  I enjoy working with javascript, css, and of course, wizardscript. \
+                  At the Nashville Software school, I help inspire creations.",
+
     company: "",
     geoLocation: "Gryffindor at Hogwarts",
     website: "harrypottershop.com",
@@ -257,6 +262,20 @@ const customizePinsButton = () => {
   return pinString;
 }
 
+//Create about panel
+const aboutDeveloper = (developer) => {
+  let aboutString = 
+   `<div class"card bg-dark text-white about-card">
+      <h4 class="card-title">About Me</h4>
+      <div class="about-main">
+      <h5>${developer.longBioHeading}</h5>
+      <p class="card-text about-text">${developer.longBioText}</p>
+    </div>`;
+  printToDom("#about-developer", aboutString);
+}
+
+
+
 //modal dialog box from bootstrap components
 const pinnedDialog = (developer) => {
   //console.log(developer.keyId);
@@ -348,7 +367,7 @@ const paintPinned = (developer) => {
         repoString += `<div class="repo-card">
                           <div class="card-body">
                             <h3>${item.repoName}</h3>
-                            <p>${item.repoDescription}</p>`;
+                            <p class="repo-description">${item.repoDescription}</p>`;
         if(techIndex) {
           repoString +=   `<div class="tech-type" style="background-color: ${technologies_arr[techIndex].color}"></div>
                             <p class="tech-name">${technologies_arr[techIndex].name}</p>`;
@@ -574,6 +593,7 @@ const buttonListener = () => {
 const init = () => {
   let page = window.location.pathname;
   paintBio(developers_arr[0]);
+  aboutDeveloper(developers_arr[0]);
   paintPinned(developers_arr[0]);
   newProject(0);
   buttonListener();

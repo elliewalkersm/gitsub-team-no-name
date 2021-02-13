@@ -49,11 +49,17 @@ main {
   display: inline-block;
 }
 
+.about-main {
+  margin: 0 0 10px;
+}
+
 .repo-header {
   display: flex;
   flex-flow: wrap;
   justify-content: space-between;
 }
+
+
 
 .pinned-repos,
 .unpinned-repos {
@@ -61,6 +67,7 @@ main {
   display: flex;
   flex-flow: wrap;
   justify-content: space-around;
+  align-items: stretch;
 }
 .pinned-repos div:last-child {
   margin-right: auto;
