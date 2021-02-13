@@ -496,8 +496,6 @@ const newProjectTechList = () => {
   return techStr;
 }
 
-
-
 //Create modal dialog with checkboxes listing technologies
 const techDialog = () => {
   let techString = 
