@@ -484,13 +484,13 @@ const newRepo = () => {
   let createRepoString = "";
   createRepoString = `<form id="newForm">
   <div class="form-group">
-    <label for="nameFormControlInput1">Repository name</label>
-    <input type="name" class="col-md-4 rounded-3 border-1" id="createRepoName" value="" required></div>
+    <label for="nameFormControlInput1" style="color: #f0f6fc;">Repository name</label>
+    <input type="name"; class="col-md-4 rounded-3 border-1" id="createRepoName" value="" style="background: none; color: #f0f6fc;" required></div>
   <div class="form-group">
-  <div id="repoNameHelp" class="form-text">Great reposstory names are short and memorable. Need inspiration? How about reimagined-disco?
+  <div id="repoNameHelp" class="form-text" style="color: #f0f6fc;">Great repository names are short and memorable. Need inspiration? How about reimagined-disco?
 </div>
-    <label for="descriptionText">Description (optional)</label>
-    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1"></textarea>
+    <label for="descriptionText" style="color: #f0f6fc;">Description (optional)</label>
+    <textarea class=" col-md-12 rounded-3 border-1" id="descriptionBox" rows="1" style="background: none;"></textarea>
   </div>
   <hr></hr>
   <button type="submit" id="repoSubmit" class="btn btn-success">Create repository</button>
@@ -504,12 +504,12 @@ const printRepo = (taco) => {
   let printRepoString = "";
   repos_Arr.forEach((item, i) => {
     printRepoString += `
-  <div class="card" style= "width: 18rem;">
-<div class="card-body">
-  <h5 class="card-title">${item.repoName}</h5>
-  <p class="card-text">${item.repoDescription}</p>
+  <div class="card" style= "width: 18rem; background: none;">
+<div class="card-body background: none;">
+  <h5 class="card-title" style="background: none;  color: #79c0ff;">${item.repoName}</h5>
+  <p class="card-text" style="background: none; color: #b1bac4;">${item.repoDescription}</p>
 </div>
-</div>`;
+</div> <hr>`;
   });
   printToDom("#printedRepos", printRepoString);
 };
@@ -828,7 +828,6 @@ const init = () => {
     case "/index.html":
       aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
-      newProject(0);
       buttonListenerOverview();
       break;
 
