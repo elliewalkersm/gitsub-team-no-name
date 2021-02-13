@@ -196,15 +196,6 @@ const developers_arr = [
 const repos_Arr = [];
 
 
-
-
-
-
-
-
-
-
-
 // PACKAGES PAGE
 // Packages array
 const packages_arr = [
@@ -245,7 +236,7 @@ const buildPackages = (arr) => {
   let domString = " ";
   console.log(arr);
   for (let i = 0; i < arr.length; i++) {
-    domString += `<div class="card">
+    domString += `<div class="packagesCard" style="width: 15rem; background: none;">
     <div class="card-body">
       <h5 class="card-title">${arr[i].title}</h5>
       <p class="card-text">${arr[i].description}</p>
@@ -278,7 +269,7 @@ const addPackage = (e) => {
   packages_arr.push(obj);
   buildPackages(packages_arr);
 
-  document.querySelector('#packagesForm').reset();
+  document.querySelector('form').reset();
 };
 
 const deletePackage = (e) => {
@@ -299,10 +290,6 @@ const packageSearch = (e) => {
 };
 
 // END PACKAGES PAGE
-
-
-
-
 
 const printToDom = (ID, string) => {
   document.querySelector(ID).innerHTML = string;
@@ -353,9 +340,11 @@ const bioOrganizations = (userBio) => {
 //Create side-bar bio section
 const paintBio = (userBio) => {
   let bioString = bioHeading(userBio);
+  bioString += `<hr />`;
   //Display Highlights / Badges
   if (userBio.badges.length) {
     bioString += bioBadges(userBio);
+    bioString += `<hr />`;
   }
   if (userBio.organizations.length) {
     bioString += bioOrganizations(userBio);
@@ -604,7 +593,7 @@ const clearCheckBoxes = ()  =>{
 const clearNewRepositoryForm = () => {
   clearCheckBoxes();
   document.getElementById("project-name").value = '';
-  document.getElementById("project-description").value = '';
+  document.getElementById("repository-description").value = '';
 }
 
 
@@ -705,9 +694,9 @@ const newProject = (developerId) => {
     `<div class="container">
        <h2>Create a new repository</h2>
        <label for="project-name">Repository name</label>
-       <input type="text" name="project-name" id="project-name" placeholder="Repository name">
+       <input type="text" style="background: none; border: 1px solid #c9d1d9;" name="project-name" id="project-name" placeholder="Repository name">
        <label for="description">Description</label>
-       <textarea id="project-description" name="project-description" rows="3"></textarea>
+       <textarea style="background: none; border: 1px solid #c9d1d9;" id="repository-description" name="repository-description" rows="3"></textarea>
        <div class="new-repo-buttons">
          <button type="button" data-toggle="modal" data-target="#technologies-modal" 
                  id="add-technologies" class="btn btn-success">Add Technologies</button>
@@ -774,7 +763,7 @@ const projectSearch = (e) => {
 const repositorySubmit = (e) => {
   if(e.target.id == 'repository-submit') {
     let repoName = document.querySelector('#project-name').value;
-    let repoDescription = document.querySelector('#project-description').value;
+    let repoDescription = document.querySelector('#repository-description').value;
     if(repoName && repoDescription) {
       let pinned = true;
       let technologies = [0]; //default technology
@@ -839,7 +828,6 @@ const init = () => {
     case "/index.html":
       aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
-      newProject(0);
       buttonListenerOverview();
       break;
 
