@@ -711,7 +711,7 @@ const makeNewProject = (developerId) => {
   printToDom("#new-project", projStr);
 };
 
-const newProject = (developerId) => {
+const newPinnedRepository = (developerId) => {
   let projStr = '';
   projStr = 
     `<div class="container">
@@ -855,6 +855,7 @@ const init = () => {
     case "/index.html":
       aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
+      newPinnedRepository(developers_arr[0]);
       buttonListenerOverview();
       break;
 
