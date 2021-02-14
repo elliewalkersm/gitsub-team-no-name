@@ -198,12 +198,35 @@ input, select, textarea{
   color:#c9d1d9;
 }
 
+<<<<<<< HEAD
 @media(max-width: 988px) {
   .git-content {
     flex-basis: 50%;
   }
 }
 
+=======
+/* Packages Page */
+.packagesCard {
+  border: 1px solid #C9D1D9;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+#packageTitle {
+  color: #C9D1D9;
+}
+
+#packageDescription {
+  color: #C9D1D9;
+}
+
+#searchBar {
+  color: #C9D1D9;
+}
+
+/* End Packages Page */
+>>>>>>> f8ad853c1fba10231dce9b551b9f406b21f782fc
 @media (max-width: 660px) {
   .footer-container a {
     display: none;
