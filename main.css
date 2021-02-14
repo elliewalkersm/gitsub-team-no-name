@@ -38,6 +38,10 @@ main {
   padding-bottom: 3em;
 }
 
+
+
+
+
 .bio-sidebar {
   margin: 10px 3% 10px 2.5em;
 }
@@ -173,6 +177,10 @@ footer {
   width: 100%;
   position: absolute;
   bottom: 0;
+}
+
+footer hr {
+  margin: 1rem 2rem 3rem; 
 }
 
 div.footer-container {
