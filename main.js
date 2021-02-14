@@ -145,8 +145,8 @@ const developers_arr = [
         repoDescription: "Mimics the Sorting Hat of J.K. Rowlings Harry Potter Series." +
                          " Sorts names into the four houses of Hogwarts",
         technologies: [2, 1, 3], 
-        stars: 125,
         forks: 36, 
+        stars: 125,
       },
       {
         repoID: 1,
@@ -154,8 +154,8 @@ const developers_arr = [
         repoName: "magic-wand",
         repoDescription: "Challenges the user to a series of questions to see if they are ready to handle a magic wand.",
         technologies: [1, 2, 3],
-        stars: 215,
         forks: 25, 
+        stars: 215,
       },
       {
         repoID: 2,
@@ -163,8 +163,8 @@ const developers_arr = [
         repoName: "broomstick",
         repoDescription: "Aids user in finding the ideal broomstick, with a list of best candidate sticks and their sellers",
         technologies: [4, 2, 6],
-        stars: 342,
         forks: 18, 
+        stars: 342,
       },
       {
         repoID: 3,
@@ -172,8 +172,8 @@ const developers_arr = [
         repoName: "spellbound",
         repoDescription: "Electronic spellbook. Helps user find the right spell in a jiffy. To be used with caution.",
         technologies: [6, 3, 9],
-        stars: 48,
         forks: 12, 
+        stars: 48,
       },
       {
         repoID: 4,
@@ -181,8 +181,8 @@ const developers_arr = [
         repoName: "tealeaves",
         repoDescription: "Online ordering of tea, with maps and hours of your favorite tea rooms.",
         technologies: [1, 2, 3],
-        stars: 627,
         forks: 28, 
+        stars: 627,
       },
       {
         repoID: 5,
@@ -190,8 +190,8 @@ const developers_arr = [
         repoName: "mentormatic",
         repoDescription: "App to help upcoming wizards find their best match for a mentor",
         technologies: [8, 3, 2],
-        stars: 89,
         forks: 8, 
+        stars: 89,
       },
       {
         repoID: 6,
@@ -199,8 +199,8 @@ const developers_arr = [
         repoName: "c yourself",
         repoDescription: "Tutorial app to aid in learning c.",
         technologies: [7, 1, 2],
-        stars: 75,
         forks: 9, 
+        stars: 75,
       }
     ],  //end of Harry Potter's repositories
     projects: {}
@@ -326,7 +326,7 @@ const bioHeading = (userBio) => {
     bioString += `${userBio.geoLocation}</li>`;
   }
   if (userBio.website != "") {
-    bioString += `<li><i class="fa fa-code-fork"></i>`;
+    bioString += `<li><i class="fa fa-link"></i>`;
     bioString += `${userBio.website}</li>`;
   }
   if (userBio.twitterName != "") {
@@ -450,27 +450,6 @@ const hasPinned = (developer) => {
   return pinned;
 };
 
-const hasForks = (developer) => {
-  let forked = false;
-  for(let item of developer.repositories) {
-    if(item.forks) {
-      forked = true;
-      break;
-    }
-  }
-  return forked;
-}
-
-const hasStars = (developer) => {
-  let starred = false;
-  for(let item of developer.repositories) {
-    if(item.stars) {
-      starred = true;
-      break;
-    }
-  }
-  return starred;
-}
 //Create respository cards
 const paintPinned = (developer) => {
   //let pinned = "pinned-repose";
@@ -508,13 +487,13 @@ const paintPinned = (developer) => {
           repoString +=   `<div class="tech-type" style="background-color: ${technologies_arr[techIndex].color}"></div>
                             <p class="tech-name">${technologies_arr[techIndex].name}</p>`;
         }
-        if(hasForks(developer)) {
-          repoString +=   `<i class="fa fa-code-fork"></i>
-                           <p class="code-forks">${item.forks}</p>`;
+        if(item.forks) {
+          repoString +=   `<i class="fa fa-code-branch"></i>
+                           <p class="github-icons">${item.forks}</p>`;
         }
-        if(hasStars(developer)) {
-          repoString +=   `<i class="fa fa-code-fork"></i>
-                           <p class="code-forks">${item.stars}</p>`;
+        if(item.stars) {
+          repoString +=   `<i class="far fa-star"></i>
+                           <p class="github-icons">${item.stars}</p>`;
         }
           repoString += `</div>
                        </div>`;
@@ -815,6 +794,8 @@ const repositorySubmit = (e) => {
     if(repoName && repoDescription) {
       let pinned = true;
       let technologies = [0]; //default technology
+      let forks = 0; //new repository, no forks
+      let stars = 0; //new repository, no stars
       if(tempTechnologies.length) {
         //console.log("has technologies");
         //console.log(tempTechnologies);
@@ -828,7 +809,9 @@ const repositorySubmit = (e) => {
         pinned,
         repoName,
         repoDescription,
-        technologies
+        technologies,
+        forks,
+        stars
       }
       //add pinned repository to top of the list
       developers_arr[0].repositories.unshift(new_repository);

@@ -39,7 +39,7 @@ main {
 }
 
 .bio-sidebar {
-  margin: 20px 5% 10px 3em;
+  margin: 10px 3% 10px 2.5em;
 }
 
 .bio-sidebar ul {
@@ -55,6 +55,14 @@ main {
   font-size: .75em;
 }
 
+.repo-card i {
+  margin: 0 5px 0 25px;
+}
+
+p.github-icons {
+  display: inline-block;
+}
+
 .orgLogo {
   width: 24px;
   height: auto;
@@ -63,6 +71,7 @@ main {
 
 .git-content {
   flex-basis: 65%;
+  margin: 0 5px 0 2.5em;
 }
 
 .repos h3, button {
@@ -119,6 +128,7 @@ p.tech-name {
 
 .create-project .container {
   max-width: 600px;
+  margin: 0;
 }
 
 textarea {
@@ -186,6 +196,12 @@ ul.footer-list {
 
 input, select, textarea{
   color:#c9d1d9;
+}
+
+@media(max-width: 988px) {
+  .git-content {
+    flex-basis: 50%;
+  }
 }
 
 @media (max-width: 660px) {
