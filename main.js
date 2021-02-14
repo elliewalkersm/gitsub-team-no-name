@@ -209,10 +209,6 @@ const developers_arr = [
 
 const repos_Arr = [];
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f8ad853c1fba10231dce9b551b9f406b21f782fc
 // PACKAGES PAGE
 // Packages array
 const packages_arr = [
