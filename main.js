@@ -326,7 +326,7 @@ const bioHeading = (userBio) => {
     bioString += `${userBio.geoLocation}</li>`;
   }
   if (userBio.website != "") {
-    bioString += `<li><i class="fa fa-link"></i>`;
+    bioString += `<li><i class="fa fa-code-fork"></i>`;
     bioString += `${userBio.website}</li>`;
   }
   if (userBio.twitterName != "") {
@@ -465,7 +465,7 @@ const hasStars = (developer) => {
   let starred = false;
   for(let item of developer.repositories) {
     if(item.stars) {
-      forked = true;
+      starred = true;
       break;
     }
   }
@@ -518,9 +518,9 @@ const paintPinned = (developer) => {
         }
           repoString += `</div>
                        </div>`;
-        }
       i++; //limit to six repositories
     }
+  }
   repoString += `</div>`;
   printToDom("#gitHubRepos", repoString);
 };
