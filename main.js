@@ -129,7 +129,7 @@ const developers_arr = [
     longBioHeading: "developer, wizard warrior, loyal friend",
     longBioText: "I'm a developer that can create your application as if by magic. \
                   I enjoy working with javascript, css, and of course, wizardscript. \
-                  At the Nashville Software school, I help inspire creations.",
+                  At the Nashville Software School, I help inspire creations.",
 
     company: "",
     geoLocation: "Gryffindor at Hogwarts",
@@ -317,11 +317,13 @@ const bioHeading = (userBio) => {
   if (userBio.company != "") {
     bioString += `<li>${userBio.company}</li>`;
   }
-  if (userBio.egoLocation != "") {
-    bioString += `<li>${userBio.geoLocation}</li>`;
+  if (userBio.geoLocation != "") {
+    bioString += `<li><i class="fa fa-map-marker"></i>`;
+    bioString += `${userBio.geoLocation}</li>`;
   }
   if (userBio.website != "") {
-    bioString += `<li>${userBio.website}</li>`;
+    bioString += `<li><i class="fa fa-link"></i>`;
+    bioString += `${userBio.website}</li>`;
   }
   if (userBio.twitterName != "") {
     bioString += `<li>${userBio.twitterName}</li>`;

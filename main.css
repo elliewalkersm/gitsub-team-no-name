@@ -50,6 +50,11 @@ main {
   left: 0;
 }
 
+.bio-sidebar .fa {
+  margin-right: 3px;
+  font-size: .75em;
+}
+
 .orgLogo {
   width: 24px;
   height: auto;
