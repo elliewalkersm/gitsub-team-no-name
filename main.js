@@ -382,7 +382,7 @@ const customizePinsButton = () => {
 const aboutDeveloper = (developer) => {
   let aboutString = 
    `<div class"card bg-dark text-white about-card">
-      <h4 class="card-title">About Me</h4>
+      <h2 class="card-title">About Me</h2>
       <div class="about-main">
       <h5>${developer.longBioHeading}</h5>
       <p class="card-text about-text">${developer.longBioText}</p>
