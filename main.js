@@ -8,13 +8,18 @@ const badges = [
   {
     badgeID: 0,
     badgeName: "Arctic Code Vault Contributor",
-    badgeLogo: "./graphics/Arctic.svg",
+    badgeLogo: "./graphics/Arctic_neg.svg",
   },
   {
     badgeID: 1,
     badgeName: "Developer Program Member",
-    badgeLogo: "./graphics/Developer.svg",
+    badgeLogo: "./graphics/Developer_neg.svg",
   },
+  {
+    badgeID: 2,
+    badgeName: "Security Bug Bounty Hunter",
+    badgeLogo: "./graphics/Bounty_neg.svg",
+  }
 ];
 
 //Array of common technologies
@@ -135,7 +140,7 @@ const developers_arr = [
     geoLocation: "Gryffindor at Hogwarts",
     website: "harrypottershop.com",
     twitterName: "@harryPotterFilm",
-    badges: [1, 0],
+    badges: [1, 0, 2],
     organizations: [0, 1, 2, 3],
     repositories: [
       {
@@ -318,15 +323,16 @@ const bioHeading = (userBio) => {
     bioString += `<li>${userBio.company}</li>`;
   }
   if (userBio.geoLocation != "") {
-    bioString += `<li><i class="fa fa-map-marker"></i>`;
-    bioString += `${userBio.geoLocation}</li>`;
+    bioString += `<li><i class="fa fa-map-marker-alt"></i>
+                  ${userBio.geoLocation}</li>`;
   }
   if (userBio.website != "") {
-    bioString += `<li><i class="fa fa-link"></i>`;
-    bioString += `${userBio.website}</li>`;
+    bioString += `<li><i class="fa fa-link"></i>
+                  ${userBio.website}</li>`;
   }
   if (userBio.twitterName != "") {
-    bioString += `<li>${userBio.twitterName}</li>`;
+    bioString += `<li><i class="fab fa-twitter"></i>
+                  ${userBio.twitterName}</li>`;
   }
   return bioString;
 };
@@ -334,9 +340,9 @@ const bioHeading = (userBio) => {
 const bioBadges = (userBio) => {
   let bioString = `<h4>Highlights</h4>
      <ul class="highlights">`;
-  for(let i = 0; i< userBio.badges.length; i++) {
-    //console.log(badges[userBio.badges[i]].badgeName);
-    bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
+  for(let i = 0; i < userBio.badges.length; i++) {
+    bioString += `<li><img class="highlight-icons" src="${badges[userBio.badges[i]].badgeLogo}">
+                  ${badges[userBio.badges[i]].badgeName}</li>`;
   }
   return bioString;
 };
@@ -345,8 +351,6 @@ const bioOrganizations = (userBio) => {
   let bioString = `<h4>Organizations</h4>
      <ul class="organizations">`;
   for(let i = 0; i < userBio.organizations.length; i++) {
-    //console.log(organizations_arr[userBio.organizations[i]].orgName);
-  //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
   return bioString;
@@ -390,7 +394,6 @@ const aboutDeveloper = (developer) => {
 
 //modal dialog box from bootstrap components
 const pinnedDialog = (developer) => {
-  //console.log(developer.keyId);
   let pinnedString = 
       `<div class="modal" id="pinned-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -470,11 +473,7 @@ const paintPinned = (developer) => {
   for(let item of developer.repositories) {
     if(i < 6 && ((item.pinned && has_pinned) || !has_pinned)) {
       techIndex = item.technologies[0];
-      //console.log("tech index: " + techIndex);
       color = technologies_arr[techIndex].color;
-      //console.log(color);
-      //console.log(technologies[techIndex].name);
-      //console.log(technologies[techIndex].color);
       repoString += `<div class="repo-card">
                           <div class="card-body">
                             <h3>${item.repoName}</h3>
@@ -553,22 +552,18 @@ const createRepo = (e) => {
 const savePinned = (e) => {
   //get id of form.
   let develId = e.srcElement.parentElement.parentElement.id;
-  //console.log("develId = " + develId);
   let pinned_form = document.getElementById(develId);
   //extract developer keyId from id of form.
   let develKey = (develId.substr(6));
   let element = '';
   for(let item of developers_arr[develKey].repositories){
-    //console.log(item.repoID);
     //get the corresponding checkbox for each repository
     element = document.getElementById(`checkbox_${item.repoID}`);
-    //console.log(element);
     if(element.checked) {
       item.pinned = true;
     } else {
       item.pinned = false;
     }
-    //console.log(item);
   }
   paintPinned(developers_arr[develKey]);
 }
@@ -592,17 +587,13 @@ const listenPinnedDialog = (e) => {
 
 //fetch the technologies saved
 const saveTechnologiesSelections = ()  => {
-//  console.log(e.srcElement.parentElement.parentElement.id);
   let checkbox = ''; 
   for(item of technologies_arr) {
     checkbox = document.getElementById(`tech-checkbox_${item.techID}`);
-    //console.log(item.techID);
     if(checkbox.checked) {
       tempTechnologies.push(item.techID);
     }
   }
-  //console.log(tempTechnologies);
-  //return(temp_arr);
 }
 
 const clearCheckBoxes = ()  =>{
@@ -622,7 +613,6 @@ const clearNewRepositoryForm = () => {
 
 //Event listener for new repository form
 const listenNewRepository = (e) => {
-  //console.log(e.target.id);
   let list = document.querySelector('#tech-modal');
   switch(e.target.id) {
     //toggle tech list check boxes
@@ -638,7 +628,6 @@ const listenNewRepository = (e) => {
       list.style.display = '';
       break;
     case "save-tech-dialog" :
-      //console.log("save-tech-dialog hit");
       saveTechnologiesSelections();
       list.style.display = '';
       break;
@@ -793,13 +782,10 @@ const repositorySubmit = (e) => {
       let forks = 0; //new repository, no forks
       let stars = 0; //new repository, no stars
       if(tempTechnologies.length) {
-        //console.log("has technologies");
-        //console.log(tempTechnologies);
         technologies = [...tempTechnologies]; //save technologies from modal dial
       } 
       tempTechnologies.length = 0; //Clear the array
       let repoID = developers_arr[0].repositories.length; 
-      //console.log(repoID);
       const new_repository = {
         repoID,
         pinned,

@@ -54,9 +54,12 @@ main {
   left: 0;
 }
 
-.bio-sidebar .fa {
+.bio-sidebar .fa, .fab {
   margin-right: 3px;
-  font-size: .75em;
+}
+
+img.highlight-icons {
+  color: #c9d1d9;
 }
 
 .repo-card i {
@@ -70,7 +73,7 @@ p.github-icons {
 .orgLogo {
   width: 24px;
   height: auto;
-  margin: 2px;
+  margin: 2px 4px;
 }
 
 .git-content {
@@ -228,13 +231,28 @@ input, select, textarea{
 /* End Packages Page */
 
 
-@media(max-width: 988px) {
+@media(max-width: 995px) {
+  .git-content {
+    flex-basis: 60%;
+  }
+    .repo-card {
+    width: 90%;
+  }
+}
+
+@media(max-width: 862px) {
   .git-content {
     flex-basis: 50%;
   }
 }
+
+@media(max-width: 682px) {
+  .git-content {
+    flex-basis: 90%;
+  }
+}
+
 @media (max-width: 660px) {
-  .footer-container a {
-    display: none;
+  .footer-container a { display: none;
   }
 }
