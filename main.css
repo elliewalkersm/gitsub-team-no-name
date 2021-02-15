@@ -38,8 +38,12 @@ main {
   padding-bottom: 3em;
 }
 
+
+
+
+
 .bio-sidebar {
-  margin: 20px 5% 10px 3em;
+  margin: 10px 3% 10px 2.5em;
 }
 
 .bio-sidebar ul {
@@ -50,14 +54,31 @@ main {
   left: 0;
 }
 
+.bio-sidebar .fa, .fab {
+  margin-right: 3px;
+}
+
+img.highlight-icons {
+  color: #c9d1d9;
+}
+
+.repo-card i {
+  margin: 0 5px 0 25px;
+}
+
+p.github-icons {
+  display: inline-block;
+}
+
 .orgLogo {
   width: 24px;
   height: auto;
-  margin: 2px;
+  margin: 2px 4px;
 }
 
 .git-content {
   flex-basis: 65%;
+  margin: 0 5px 0 2.5em;
 }
 
 .repos h3, button {
@@ -114,6 +135,7 @@ p.tech-name {
 
 .create-project .container {
   max-width: 600px;
+  margin: 0 0 20px 0;
 }
 
 textarea {
@@ -160,6 +182,10 @@ footer {
   bottom: 0;
 }
 
+footer hr {
+  margin: 1rem 2rem 3rem; 
+}
+
 div.footer-container {
   display: flex;
   flex-wrap: wrap;
@@ -204,6 +230,31 @@ input, select, textarea{
 
 /* End Packages Page */
 
+/* Adjust pinned repo card widths */
+@media(max-width: 995px) {
+  .git-content {
+    flex-basis: 60%;
+  }
+    .repo-card {
+    width: 90%;
+  }
+}
+
+@media(max-width: 862px) {
+  .git-content {
+    flex-basis: 50%;
+  }
+}
+
+/* Cards get wider again
+/* because they move underneath
+/* the bio section. */
+@media(max-width: 682px) {
+  .git-content {
+    flex-basis: 90%;
+  }
+}
+
 /*Start Projects Page*/ 
 .newProject {
   display: flex;
@@ -216,10 +267,7 @@ margin: 0px;
 }
 
 
-
-
 @media (max-width: 660px) {
-  .footer-container a {
-    display: none;
+  .footer-container a { display: none;
   }
 }
