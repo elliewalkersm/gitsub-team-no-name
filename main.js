@@ -7,13 +7,18 @@ const badges = [
   {
     badgeID: 0,
     badgeName: "Arctic Code Vault Contributor",
-    badgeLogo: "./graphics/Arctic.svg",
+    badgeLogo: "./graphics/Arctic_neg.svg",
   },
   {
     badgeID: 1,
     badgeName: "Developer Program Member",
-    badgeLogo: "./graphics/Developer.svg",
+    badgeLogo: "./graphics/Developer_neg.svg",
   },
+  {
+    badgeID: 2,
+    badgeName: "Security Bug Bounty Hunter",
+    badgeLogo: "./graphics/Bounty_neg.svg",
+  }
 ];
 
 //Array of common technologies
@@ -128,13 +133,13 @@ const developers_arr = [
     longBioHeading: "developer, wizard warrior, loyal friend",
     longBioText: "I'm a developer that can create your application as if by magic. \
                   I enjoy working with javascript, css, and of course, wizardscript. \
-                  At the Nashville Software school, I help inspire creations.",
+                  At the Nashville Software School, I help inspire creations.",
 
     company: "",
     geoLocation: "Gryffindor at Hogwarts",
     website: "harrypottershop.com",
     twitterName: "@harryPotterFilm",
-    badges: [1, 0],
+    badges: [1, 0, 2],
     organizations: [0, 1, 2, 3],
     repositories: [
       {
@@ -142,8 +147,10 @@ const developers_arr = [
         pinned: false,
         repoName: "sorting-hat",
         repoDescription: "Mimics the Sorting Hat of J.K. Rowlings Harry Potter Series." +
-          " Sorts names into the four houses of Hogwarts",
-        technologies: [2, 1, 3],
+                         " Sorts names into the four houses of Hogwarts",
+        technologies: [2, 1, 3], 
+        forks: 36, 
+        stars: 125,
       },
       {
         repoID: 1,
@@ -151,6 +158,8 @@ const developers_arr = [
         repoName: "magic-wand",
         repoDescription: "Challenges the user to a series of questions to see if they are ready to handle a magic wand.",
         technologies: [1, 2, 3],
+        forks: 25, 
+        stars: 215,
       },
       {
         repoID: 2,
@@ -158,6 +167,8 @@ const developers_arr = [
         repoName: "broomstick",
         repoDescription: "Aids user in finding the ideal broomstick, with a list of best candidate sticks and their sellers",
         technologies: [4, 2, 6],
+        forks: 18, 
+        stars: 342,
       },
       {
         repoID: 3,
@@ -165,6 +176,8 @@ const developers_arr = [
         repoName: "spellbound",
         repoDescription: "Electronic spellbook. Helps user find the right spell in a jiffy. To be used with caution.",
         technologies: [6, 3, 9],
+        forks: 12, 
+        stars: 48,
       },
       {
         repoID: 4,
@@ -172,6 +185,8 @@ const developers_arr = [
         repoName: "tealeaves",
         repoDescription: "Online ordering of tea, with maps and hours of your favorite tea rooms.",
         technologies: [1, 2, 3],
+        forks: 28, 
+        stars: 627,
       },
       {
         repoID: 5,
@@ -179,6 +194,8 @@ const developers_arr = [
         repoName: "mentormatic",
         repoDescription: "App to help upcoming wizards find their best match for a mentor",
         technologies: [8, 3, 2],
+        forks: 8, 
+        stars: 89,
       },
       {
         repoID: 6,
@@ -186,6 +203,8 @@ const developers_arr = [
         repoName: "c yourself",
         repoDescription: "Tutorial app to aid in learning c.",
         technologies: [7, 1, 2],
+        forks: 9, 
+        stars: 75,
       }
     ],  //end of Harry Potter's repositories
     projects: {}
@@ -193,7 +212,6 @@ const developers_arr = [
 ];
 
 const repos_Arr = [];
-
 
 // PACKAGES PAGE
 // Packages array
@@ -302,14 +320,17 @@ const bioHeading = (userBio) => {
   if (userBio.company != "") {
     bioString += `<li>${userBio.company}</li>`;
   }
-  if (userBio.egoLocation != "") {
-    bioString += `<li>${userBio.geoLocation}</li>`;
+  if (userBio.geoLocation != "") {
+    bioString += `<li><i class="fa fa-map-marker-alt"></i>
+                  ${userBio.geoLocation}</li>`;
   }
   if (userBio.website != "") {
-    bioString += `<li>${userBio.website}</li>`;
+    bioString += `<li><i class="fa fa-link"></i>
+                  ${userBio.website}</li>`;
   }
   if (userBio.twitterName != "") {
-    bioString += `<li>${userBio.twitterName}</li>`;
+    bioString += `<li><i class="fab fa-twitter"></i>
+                  ${userBio.twitterName}</li>`;
   }
   return bioString;
 };
@@ -317,9 +338,9 @@ const bioHeading = (userBio) => {
 const bioBadges = (userBio) => {
   let bioString = `<h4>Highlights</h4>
      <ul class="highlights">`;
-
-  for(let i = 0; i< userBio.badges.length; i++) {
-    bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
+  for(let i = 0; i < userBio.badges.length; i++) {
+    bioString += `<li><img class="highlight-icons" src="${badges[userBio.badges[i]].badgeLogo}">
+                  ${badges[userBio.badges[i]].badgeName}</li>`;
   }
   return bioString;
 };
@@ -329,8 +350,6 @@ const bioOrganizations = (userBio) => {
      <ul class="organizations">`;
 
   for(let i = 0; i < userBio.organizations.length; i++) {
-  //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
-
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
   return bioString;
@@ -431,7 +450,7 @@ const hasPinned = (developer) => {
 
 //Create respository cards
 const paintPinned = (developer) => {
-  let pinned = "pinned-repose";
+  //let pinned = "pinned-repose";
   let pinButton = customizePinsButton();
   let repoString = `<div class="repo-header">`;
   let has_pinned = hasPinned(developer);
@@ -461,8 +480,17 @@ const paintPinned = (developer) => {
       if (techIndex) {
         repoString += `<div class="tech-type" style="background-color: ${technologies_arr[techIndex].color}"></div>
                             <p class="tech-name">${technologies_arr[techIndex].name}</p>`;
-      }
-      repoString += `</div>
+        }
+        if(item.forks) {
+          repoString +=   `<i class="fa fa-code-branch"></i>
+                           <p class="github-icons">${item.forks}</p>`;
+        }
+        if(item.stars) {
+          repoString +=   `<i class="far fa-star"></i>
+                           <p class="github-icons">${item.stars}</p>`;
+        }
+          repoString += `</div>
+
                        </div>`;
       i++; //limit to six repositories
     }
@@ -524,7 +552,6 @@ const createRepo = (e) => {
 const savePinned = (e) => {
   //get id of form.
   let develId = e.srcElement.parentElement.parentElement.id;
-  //console.log("develId = " + develId);
   let pinned_form = document.getElementById(develId);
   //extract developer keyId from id of form.
   let develKey = (develId.substr(6));
@@ -533,8 +560,7 @@ const savePinned = (e) => {
   for(let item of developers_arr[develKey].repositories){
     //get the corresponding checkbox for each repository
     element = document.getElementById(`checkbox_${item.repoID}`);
-    //console.log(element);
-    if (element.checked) {
+    if(element.checked) {
       item.pinned = true;
     } else {
       item.pinned = false;
@@ -570,7 +596,6 @@ const saveTechnologiesSelections = ()  => {
       tempTechnologies.push(item.techID);
     }
   }
-  //return(temp_arr);
 }
 
 const clearCheckBoxes = () => {
@@ -680,7 +705,7 @@ const makeNewProject = (developerId) => {
   printToDom("#new-project", projStr);
 };
 
-const newProject = (developerId) => {
+const newPinnedRepository = (developerId) => {
   let projStr = '';
   projStr =
     `<div class="container">
@@ -760,6 +785,8 @@ const repositorySubmit = (e) => {
     if (repoName && repoDescription) {
       let pinned = true;
       let technologies = [0]; //default technology
+      let forks = 0; //new repository, no forks
+      let stars = 0; //new repository, no stars
 
       if(tempTechnologies.length) {
         technologies = [...tempTechnologies]; //save technologies from modal dial
@@ -772,7 +799,9 @@ const repositorySubmit = (e) => {
         pinned,
         repoName,
         repoDescription,
-        technologies
+        technologies,
+        forks,
+        stars
       }
       //add pinned repository to top of the list
       developers_arr[0].repositories.unshift(new_repository);
@@ -820,6 +849,7 @@ const init = () => {
     case "/index.html":
       aboutDeveloper(developers_arr[0]);
       paintPinned(developers_arr[0]);
+      newPinnedRepository(developers_arr[0]);
       buttonListenerOverview();
       newProject();
       break;
