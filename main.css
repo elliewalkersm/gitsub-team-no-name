@@ -1,0 +1,273 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0d1117;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: #c9d1d9;
+}
+
+.navbar {
+  display: block;
+}
+
+.navbar ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+
+.navbar li {
+  margin: 5px 1vw;
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-start;
+  padding-bottom: 3em;
+}
+
+
+
+
+
+.bio-sidebar {
+  margin: 10px 3% 10px 2.5em;
+}
+
+.bio-sidebar ul {
+  list-style: none;
+  padding-inline-start: 0;
+  height: 80%;
+  top: 0;
+  left: 0;
+}
+
+.bio-sidebar .fa, .fab {
+  margin-right: 3px;
+}
+
+img.highlight-icons {
+  color: #c9d1d9;
+}
+
+.repo-card i {
+  margin: 0 5px 0 25px;
+}
+
+p.github-icons {
+  display: inline-block;
+}
+
+.orgLogo {
+  width: 24px;
+  height: auto;
+  margin: 2px 4px;
+}
+
+.git-content {
+  flex-basis: 65%;
+  margin: 0 5px 0 2.5em;
+}
+
+.repos h3, button {
+  display: inline-block;
+}
+
+.about-main {
+  margin: 0 0 10px;
+}
+
+.repo-header {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+.pinned-repos,
+.unpinned-repos {
+  margin: 20px 0;
+  display: flex;
+  flex-flow: wrap;
+  align-items: stretch;
+}
+.pinned-repos div:last-child {
+  margin-right: auto;
+}
+
+.repo-card {
+  width:  48%;
+  border: 1px solid #c9d1d9;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+.repo-card h3 {
+  font-size: 1.1rem;
+}
+
+div.tech-type {
+  height: 12px;
+  width: 12px;
+  border: 1px solid black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: inline-block;
+}
+div.tech-type.no-circle {
+  border: none;
+}
+
+p.tech-name {
+  display: inline-block;
+}
+
+.create-project .container {
+  max-width: 600px;
+  margin: 0 0 20px 0;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+}
+
+div.drop-down {
+  display: inline-block;
+}
+
+
+button {
+  margin: 5px 0 5px;
+}
+
+div.new-repo-buttons {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+input, label {
+  display: block;
+  margin: 5px 0 5px;
+}
+
+.modal { 
+  color: black;
+}
+
+.modal input, label {
+  display: inline-block;
+}
+
+ul.check-box {
+  list-style: none;
+}
+
+footer {
+  height: 3rem;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+footer hr {
+  margin: 1rem 2rem 3rem; 
+}
+
+div.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+ul.footer-list {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  list-style: none;
+  font-size: 12px;
+}
+.footer-list li {
+  margin: 5px 1vw;
+}
+
+input, select, textarea{
+  color:#c9d1d9;
+}
+
+/* Packages Page */
+.packagesCard {
+  border: 1px solid #C9D1D9;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+#packageTitle {
+  color: #C9D1D9;
+}
+
+#packageDescription {
+  color: #C9D1D9;
+}
+
+#searchBar {
+  color: #C9D1D9;
+}
+
+/* End Packages Page */
+
+/* Adjust pinned repo card widths */
+@media(max-width: 995px) {
+  .git-content {
+    flex-basis: 60%;
+  }
+    .repo-card {
+    width: 90%;
+  }
+}
+
+@media(max-width: 862px) {
+  .git-content {
+    flex-basis: 50%;
+  }
+}
+
+/* Cards get wider again
+/* because they move underneath
+/* the bio section. */
+@media(max-width: 682px) {
+  .git-content {
+    flex-basis: 90%;
+  }
+}
+
+/*Start Projects Page*/ 
+.newProject {
+  display: flex;
+  justify-content: left;
+}
+
+.dropdownMenu {
+padding: 0px;
+margin: 0px;
+}
+
+
+@media (max-width: 660px) {
+  .footer-container a { display: none;
+  }
+}
