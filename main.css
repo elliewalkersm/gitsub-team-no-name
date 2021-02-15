@@ -230,7 +230,7 @@ input, select, textarea{
 
 /* End Packages Page */
 
-//Adjust pinned repo card widths
+/* Adjust pinned repo card widths */
 @media(max-width: 995px) {
   .git-content {
     flex-basis: 60%;
@@ -244,11 +244,11 @@ input, select, textarea{
   .git-content {
     flex-basis: 50%;
   }
-
 }
-//Cards get wider again
-//because they move underneath
-//the bio section.
+
+/* Cards get wider again
+/* because they move underneath
+/* the bio section. */
 @media(max-width: 682px) {
   .git-content {
     flex-basis: 90%;
