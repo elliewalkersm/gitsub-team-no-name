@@ -203,6 +203,21 @@ input, select, textarea{
 }
 
 /* End Packages Page */
+
+/*Start Projects Page*/ 
+.newProject {
+  display: flex;
+  justify-content: left;
+}
+
+.dropdownMenu {
+padding: 0px;
+margin: 0px;
+}
+
+
+
+
 @media (max-width: 660px) {
   .footer-container a {
     display: none;
