@@ -30,8 +30,8 @@
   -Seachbar to filter through packages
   -Ability to delete package
 
-* Screenshots of your project
-  <img width="1440" alt="Screen Shot 2021-02-15 at 6 42 50 PM" src="https://user-images.githubusercontent.com/76851756/108005238-ca643900-6fbd-11eb-89b2-97b9d7471412.png">
+* Screenshots of your projects
+  <img width="1440" alt="Screen Shot 2021-02-15 at 6 58 35 PM" src="https://user-images.githubusercontent.com/76851756/108006041-f1bc0580-6fbf-11eb-8f34-c36656779553.png">
 
   <img width="1440" alt="Screen Shot 2021-02-15 at 6 43 12 PM" src="https://user-images.githubusercontent.com/76851756/108005271-da7c1880-6fbd-11eb-8f35-05ea958bd87a.png">
 
