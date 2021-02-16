@@ -851,7 +851,6 @@ const init = () => {
       paintPinned(developers_arr[0]);
       newPinnedRepository(developers_arr[0]);
       buttonListenerOverview();
-      newProject();
       break;
 
     case "/repositories.html":
