@@ -338,19 +338,9 @@ const bioHeading = (userBio) => {
 const bioBadges = (userBio) => {
   let bioString = `<h4>Highlights</h4>
      <ul class="highlights">`;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  for(let i = 0; i< userBio.badges.length; i++) {
-=======
-  for (let i = 0; i < userBio.badges.length; i++) {
-    //console.log(badges[userBio.badges[i]].badgeName);
->>>>>>> testing
-    bioString += `<li>${badges[userBio.badges[i]].badgeName}</li>`;
-=======
   for(let i = 0; i < userBio.badges.length; i++) {
     bioString += `<li><img class="highlight-icons" src="${badges[userBio.badges[i]].badgeLogo}">
                   ${badges[userBio.badges[i]].badgeName}</li>`;
->>>>>>> testing
   }
   return bioString;
 };
@@ -358,19 +348,8 @@ const bioBadges = (userBio) => {
 const bioOrganizations = (userBio) => {
   let bioString = `<h4>Organizations</h4>
      <ul class="organizations">`;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  for(let i = 0; i < userBio.organizations.length; i++) {
-  //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
-=======
-  for (let i = 0; i < userBio.organizations.length; i++) {
-    //console.log(organizations_arr[userBio.organizations[i]].orgName);
-    //  bioString += `<li>${organizations_arr[userBio.organizations[i]].orgName}</li>`;
->>>>>>> testing
-=======
 
   for(let i = 0; i < userBio.organizations.length; i++) {
->>>>>>> testing
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
   return bioString;
@@ -414,19 +393,8 @@ const aboutDeveloper = (developer) => {
 
 //modal dialog box from bootstrap components
 const pinnedDialog = (developer) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
   let pinnedString = 
       `<div class="modal" id="pinned-modal" tabindex="-1" role="dialog">
-=======
-  //console.log(developer.keyId);
-  let pinnedString =
-    `<div class="modal" id="pinned-modal" tabindex="-1" role="dialog">
->>>>>>> testing
-=======
-  let pinnedString = 
-      `<div class="modal" id="pinned-modal" tabindex="-1" role="dialog">
->>>>>>> testing
         <div class="modal-dialog" role="document">
           <div class="modal-content" id="key_ID${developer.keyId}">
             <div class="modal-header">
@@ -522,7 +490,6 @@ const paintPinned = (developer) => {
                            <p class="github-icons">${item.stars}</p>`;
         }
           repoString += `</div>
-
                        </div>`;
       i++; //limit to six repositories
     }
@@ -588,17 +555,8 @@ const savePinned = (e) => {
   //extract developer keyId from id of form.
   let develKey = (develId.substr(6));
   let element = '';
-<<<<<<< HEAD
-<<<<<<< HEAD
-  for(let item of developers_arr[develKey].repositories){
-=======
-  for (let item of developers_arr[develKey].repositories) {
-    //console.log(item.repoID);
->>>>>>> testing
-=======
 
   for(let item of developers_arr[develKey].repositories){
->>>>>>> testing
     //get the corresponding checkbox for each repository
     element = document.getElementById(`checkbox_${item.repoID}`);
     if(element.checked) {
@@ -628,28 +586,12 @@ const listenPinnedDialog = (e) => {
 }
 
 //fetch the technologies saved
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> testing
 const saveTechnologiesSelections = ()  => {
   let checkbox = ''; 
   for(item of technologies_arr) {
     checkbox = document.getElementById(`tech-checkbox_${item.techID}`);
     if(checkbox.checked) {
-<<<<<<< HEAD
-=======
-const saveTechnologiesSelections = () => {
-  //  console.log(e.srcElement.parentElement.parentElement.id);
-  let checkbox = '';
-  for (item of technologies_arr) {
-    checkbox = document.getElementById(`tech-checkbox_${item.techID}`);
-    //console.log(item.techID);
-    if (checkbox.checked) {
->>>>>>> testing
-=======
->>>>>>> testing
       tempTechnologies.push(item.techID);
     }
   }
@@ -686,16 +628,7 @@ const listenNewRepository = (e) => {
     case "close-tech-dialog":
       list.style.display = '';
       break;
-<<<<<<< HEAD
-<<<<<<< HEAD
     case "save-tech-dialog" :
-=======
-    case "save-tech-dialog":
-      //console.log("save-tech-dialog hit");
->>>>>>> testing
-=======
-    case "save-tech-dialog" :
->>>>>>> testing
       saveTechnologiesSelections();
       list.style.display = '';
       break;
@@ -851,24 +784,6 @@ const repositorySubmit = (e) => {
     if (repoName && repoDescription) {
       let pinned = true;
       let technologies = [0]; //default technology
-<<<<<<< HEAD
-<<<<<<< HEAD
-      if(tempTechnologies.length) {
-=======
-      if (tempTechnologies.length) {
-        //console.log("has technologies");
-        //console.log(tempTechnologies);
->>>>>>> testing
-        technologies = [...tempTechnologies]; //save technologies from modal dial
-      }
-      tempTechnologies.length = 0; //Clear the array
-<<<<<<< HEAD
-      let repoID = developers_arr[0].repositories.length; 
-=======
-      let repoID = developers_arr[0].repositories.length;
-      //console.log(repoID);
->>>>>>> testing
-=======
       let forks = 0; //new repository, no forks
       let stars = 0; //new repository, no stars
 
@@ -878,7 +793,6 @@ const repositorySubmit = (e) => {
       tempTechnologies.length = 0; //Clear the array
 
       let repoID = developers_arr[0].repositories.length; 
->>>>>>> testing
       const new_repository = {
         repoID,
         pinned,
@@ -936,7 +850,6 @@ const init = () => {
       paintPinned(developers_arr[0]);
       newPinnedRepository(developers_arr[0]);
       buttonListenerOverview();
-      newProject();
       break;
 
     case "/repositories.html":
