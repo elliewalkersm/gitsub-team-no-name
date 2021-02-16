@@ -1,4 +1,3 @@
-console.log("Team No-Name");
 const projectsArr = [];
 
 
@@ -229,7 +228,7 @@ const packages_arr = [
   },
   {
     title: 'NuGet',
-    description: 'A free and open source package manager used for the Microsoft development platforms including .NET.', 
+    description: 'A free and open source package manager used for the Microsoft development platforms including .NET.',
     id: 3,
   },
   {
@@ -252,7 +251,6 @@ const packages_arr = [
 // Package card builder
 const buildPackages = (arr) => {
   let domString = " ";
-  console.log(arr);
   for (let i = 0; i < arr.length; i++) {
     domString += `<div class="packagesCard" style="width: 15rem; background: none;">
     <div class="card-body">
@@ -274,7 +272,7 @@ const addPackage = (e) => {
   const description = document.querySelector('#packageDescription').value;
   const packageId = packages_arr
     .map((package) => package.id)
-    .sort((a,b) => a - b);
+    .sort((a, b) => a - b);
 
   const id = packageId.length ? packageId[packageId.length - 1] + 1 : 1;
 
@@ -293,7 +291,7 @@ const addPackage = (e) => {
 const deletePackage = (e) => {
   const targetType = e.target.type;
   const targetId = Number(e.target.id);
-  
+
   if (targetType === 'button') {
     const packageIndex = packages_arr.findIndex(package => package.id === targetId);
     let deletedPackage = packages_arr.splice(packageIndex, 1);
@@ -350,6 +348,7 @@ const bioBadges = (userBio) => {
 const bioOrganizations = (userBio) => {
   let bioString = `<h4>Organizations</h4>
      <ul class="organizations">`;
+
   for(let i = 0; i < userBio.organizations.length; i++) {
     bioString += `<img src="${organizations_arr[userBio.organizations[i]].orgLogo}" class="orgLogo">`;
   }
@@ -372,7 +371,7 @@ const paintBio = (userBio) => {
 };
 
 const customizePinsButton = () => {
-  let pinString = 
+  let pinString =
     `<button type="button" data-toggle="modal" data-target="#pinned-modal" 
       id="customize-pins" class="btn btn-success">Customize your pins</button>`;
   return pinString;
@@ -380,9 +379,9 @@ const customizePinsButton = () => {
 
 //Create about panel
 const aboutDeveloper = (developer) => {
-  let aboutString = 
-   `<div class"card bg-dark text-white about-card">
-      <h2 class="card-title">About Me</h2>
+  let aboutString =
+    `<div class"card bg-dark text-white about-card">
+      <h4 class="card-title">About Me</h4>
       <div class="about-main">
       <h5>${developer.longBioHeading}</h5>
       <p class="card-text about-text">${developer.longBioText}</p>
@@ -406,23 +405,23 @@ const pinnedDialog = (developer) => {
             </div>
             <div class="modal-body">
               <ul class="check-box">`;
-              //display list of repositories with checkboxes
-              let i = 0;
-              let checked = '';
-              for(let item of developer.repositories) {
-                if(item.pinned) {
-                  checked = 'checked';
-                }
-                pinnedString +=
-                 `<li>
+  //display list of repositories with checkboxes
+  let i = 0;
+  let checked = '';
+  for (let item of developer.repositories) {
+    if (item.pinned) {
+      checked = 'checked';
+    }
+    pinnedString +=
+      `<li>
                      <input type="checkbox" id="checkbox_${item.repoID}" name="checkbox_${item.repoName}"
                       value="true" ${checked}>
                     <label for="checkbox_${item.repoID}">${item.repoName}</label>
                   </li>`;
-                checked = '';
-              }
-   pinnedString +=
-              `</ul>
+    checked = '';
+  }
+  pinnedString +=
+    `</ul>
               <p>Modal body text goes here.</p>
             </div>
             <div class="modal-footer">
@@ -453,10 +452,10 @@ const hasPinned = (developer) => {
 const paintPinned = (developer) => {
   //let pinned = "pinned-repose";
   let pinButton = customizePinsButton();
-  let repoString =  `<div class="repo-header">`;
+  let repoString = `<div class="repo-header">`;
   let has_pinned = hasPinned(developer);
-  if (has_pinned){
-    repoString +=  `<h3>Pinned Repositories</h3>${pinButton}
+  if (has_pinned) {
+    repoString += `<h3>Pinned Repositories</h3>${pinButton}
                    </div>
                    <div class="pinned-repos">`;
   } else {
@@ -470,16 +469,16 @@ const paintPinned = (developer) => {
   let color = '';
   let techIndex = 0; //tells us the most prominent tech used in the repository
   let i = 0; //limit to six repositories
-  for(let item of developer.repositories) {
-    if(i < 6 && ((item.pinned && has_pinned) || !has_pinned)) {
+  for (let item of developer.repositories) {
+    if (i < 6 && ((item.pinned && has_pinned) || !has_pinned)) {
       techIndex = item.technologies[0];
       color = technologies_arr[techIndex].color;
       repoString += `<div class="repo-card">
                           <div class="card-body">
                             <h3>${item.repoName}</h3>
                             <p class="repo-description">${item.repoDescription}</p>`;
-        if(techIndex) {
-          repoString +=   `<div class="tech-type" style="background-color: ${technologies_arr[techIndex].color}"></div>
+      if (techIndex) {
+        repoString += `<div class="tech-type" style="background-color: ${technologies_arr[techIndex].color}"></div>
                             <p class="tech-name">${technologies_arr[techIndex].name}</p>`;
         }
         if(item.forks) {
@@ -491,6 +490,7 @@ const paintPinned = (developer) => {
                            <p class="github-icons">${item.stars}</p>`;
         }
           repoString += `</div>
+
                        </div>`;
       i++; //limit to six repositories
     }
@@ -498,11 +498,11 @@ const paintPinned = (developer) => {
   repoString += `</div>`;
   printToDom("#gitHubRepos", repoString);
 };
- // TODO // STRETCH Create event lsitener that is passed a cb function that prints the user's input STRETCH //
- // 1. Retrieve the user input by setting the Search Repo to the id of our search bar //
+// TODO // STRETCH Create event lsitener that is passed a cb function that prints the user's input STRETCH //
+// 1. Retrieve the user input by setting the Search Repo to the id of our search bar //
 const searchRepo = document.getElementById("searchBar")
- 
-const newRepo = () => { 
+
+const newRepo = () => {
   let createRepoString = "";
   createRepoString = `<form id="newForm">
   <div class="form-group">
@@ -556,6 +556,7 @@ const savePinned = (e) => {
   //extract developer keyId from id of form.
   let develKey = (develId.substr(6));
   let element = '';
+
   for(let item of developers_arr[develKey].repositories){
     //get the corresponding checkbox for each repository
     element = document.getElementById(`checkbox_${item.repoID}`);
@@ -570,15 +571,15 @@ const savePinned = (e) => {
 
 //Pinned dialog box event listener
 const listenPinnedDialog = (e) => {
-  switch(e.target.id) {
-    case "customize-pins" :
+  switch (e.target.id) {
+    case "customize-pins":
       document.querySelector('#pinned-modal').style.display = "block";
       break;
-    case "x-close-pinned-dialog" :
-    case "close-pinned-dialog" :
+    case "x-close-pinned-dialog":
+    case "close-pinned-dialog":
       document.querySelector('#pinned-modal').style.display = "none";
       break;
-    case "save-pinned-dialog" :
+    case "save-pinned-dialog":
       savePinned(e);
       document.querySelector('#pinned-modal').style.display = "none";
       break;
@@ -586,6 +587,7 @@ const listenPinnedDialog = (e) => {
 }
 
 //fetch the technologies saved
+
 const saveTechnologiesSelections = ()  => {
   let checkbox = ''; 
   for(item of technologies_arr) {
@@ -596,9 +598,9 @@ const saveTechnologiesSelections = ()  => {
   }
 }
 
-const clearCheckBoxes = ()  =>{
-  let checkbox = ''; 
-  for(item of technologies_arr) {
+const clearCheckBoxes = () => {
+  let checkbox = '';
+  for (item of technologies_arr) {
     checkbox = document.getElementById(`tech-checkbox_${item.techID}`);
     checkbox.checked = false;
   }
@@ -614,17 +616,17 @@ const clearNewRepositoryForm = () => {
 //Event listener for new repository form
 const listenNewRepository = (e) => {
   let list = document.querySelector('#tech-modal');
-  switch(e.target.id) {
+  switch (e.target.id) {
     //toggle tech list check boxes
-    case "add-technologies" :
-      if(list.style.display === '') {
+    case "add-technologies":
+      if (list.style.display === '') {
         list.style.display = "block";
-      } else if(list.style.display === "block") {
+      } else if (list.style.display === "block") {
         list.style.display = '';
-      } 
+      }
       break;
-    case "x-close-tech-dialog" :
-    case "close-tech-dialog"   :
+    case "x-close-tech-dialog":
+    case "close-tech-dialog":
       list.style.display = '';
       break;
     case "save-tech-dialog" :
@@ -632,7 +634,7 @@ const listenNewRepository = (e) => {
       list.style.display = '';
       break;
 
-    default: 
+    default:
       break;
   }
 }
@@ -642,8 +644,8 @@ const newProjectTechList = () => {
   let techStr = `<ul class="check-box">`;
   //display technologies list
   let i = 0;
-  for(let item of technologies_arr) {
-    techStr += 
+  for (let item of technologies_arr) {
+    techStr +=
       `<li>
         <input type="checkbox" id="tech-checkbox_${item.techID}" name="tech-checkbox_${item.name}"
         value="true">
@@ -655,7 +657,7 @@ const newProjectTechList = () => {
 
 //Create modal dialog with checkboxes listing technologies
 const techDialog = () => {
-  let techString = 
+  let techString =
     `<div class="modal" id="tech-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content" id="tech-modal-dialog">
@@ -666,10 +668,10 @@ const techDialog = () => {
             </button>
           </div>
           <div class="modal-body">`
-   techString += newProjectTechList();
-              
-   techString +=
-          `</div>
+  techString += newProjectTechList();
+
+  techString +=
+    `</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="save-tech-dialog">Save changes</button>
             <button type="button" class="btn btn-secondary" id="close-tech-dialog" data-dismiss="modal">Close</button>
@@ -677,22 +679,25 @@ const techDialog = () => {
         </div>
       </div>
     </div>`;
-      
+
   return techString;
 }
 
 //Create new repository form
 const makeNewProject = (developerId) => {
   let projStr = '';
-  projStr = 
-  `<form id="newProject">
-      <div class="container">
-     <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
+  projStr =
+    `<form id="newProject">
+      <div class="container" style="width:100%">
       <h2>Create a new project</h2>
+      <p>Coordinate, track, and update your work in one place, so projects stay transparent and on schedule</p>
+      <hr>
       <label for="project-name">Project board name</label>
-      <input style="background: none; border: 1px solid #c9d1d9;" type="text" name="project-name" id="project-name" placeholder="Project board name">
+      <input style="background: none; border: 1px solid #484f58" type="text" name="project-name" id="project-name" placeholder="Project board name">
+      <div class="mb-2">
       <label for="description">Description</label>
-      <textarea style="background: none;border: 1px solid #c9d1d9; " id="project-description" name="project-description" rows="3" cols="50"></textarea>
+      <textarea style="background: none;border: 1px solid #484f58; " id="project-description" name="project-description" rows="3" cols="50"></textarea>
+      </div>
       <button type="button" id="project-submit" class="btn btn-success">Create project</button>
       </div>
     </form>`;
@@ -702,7 +707,7 @@ const makeNewProject = (developerId) => {
 
 const newPinnedRepository = (developerId) => {
   let projStr = '';
-  projStr = 
+  projStr =
     `<div class="container">
        <h2>Create a new repository</h2>
        <label for="project-name">Repository name</label>
@@ -713,9 +718,9 @@ const newPinnedRepository = (developerId) => {
          <button type="button" data-toggle="modal" data-target="#technologies-modal" 
                  id="add-technologies" class="btn btn-success">Add Technologies</button>
          <div class="drop-down" id="tech-list-drop-down">`;
-           projStr += techDialog();
-           projStr +=
-        `</div>
+  projStr += techDialog();
+  projStr +=
+    `</div>
          <button type="button" id="repository-submit" class="btn btn-success">Create repository</button>
        </div>
      </div>`;
@@ -729,7 +734,7 @@ const createNewProject = (e) => {
   let obj = {
     projectName: document.querySelector("#project-name").value,
     projectDescription: document.querySelector("#project-description").value,
-    projectId: e.target.id 
+    projectId: e.target.id
   }
   projectsArr.push(obj);
   console.log(projectsArr);
@@ -743,8 +748,9 @@ const projectPainter = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     domString +=
       `<div class="card-body-flex-container" id=${arr[i].projectId}>
-        <p class="card-text" id="projectName">${arr[i].projectName}</p>
-        <p class="card-text bg-gray border-bottom" id="projectDescription">${arr[i].projectDescription}</p>
+        <h4 class="card-text" id="projectName">${arr[i].projectName}</h4>
+        <p class="card-text bg-gray" style="border-bottom: 1px solid #484f58; color: #8b949e;"
+       id="projectDescription">${arr[i].projectDescription}</p>
       </div>`
 
     printToDom("#project-results", domString);
@@ -773,18 +779,20 @@ const projectSearch = (e) => {
 
 //Add pinned repository
 const repositorySubmit = (e) => {
-  if(e.target.id == 'repository-submit') {
+  if (e.target.id == 'repository-submit') {
     let repoName = document.querySelector('#project-name').value;
     let repoDescription = document.querySelector('#repository-description').value;
-    if(repoName && repoDescription) {
+    if (repoName && repoDescription) {
       let pinned = true;
       let technologies = [0]; //default technology
       let forks = 0; //new repository, no forks
       let stars = 0; //new repository, no stars
+
       if(tempTechnologies.length) {
         technologies = [...tempTechnologies]; //save technologies from modal dial
-      } 
+      }
       tempTechnologies.length = 0; //Clear the array
+
       let repoID = developers_arr[0].repositories.length; 
       const new_repository = {
         repoID,
@@ -800,10 +808,10 @@ const repositorySubmit = (e) => {
       //clear the form
       clearNewRepositoryForm();
       //paint repositories
-      paintPinned(developers_arr[0]);  
+      paintPinned(developers_arr[0]);
     }
   }
-} 
+}
 const projectSubmit = (e) => {
   if (e.target.id == "project-submit") {
     console.log(document.querySelector("#project-name").value);
@@ -863,7 +871,7 @@ const init = () => {
   }
 
   // paintBio(developers_arr[0]);
-  
+
 }
 
 init();
