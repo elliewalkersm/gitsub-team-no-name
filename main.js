@@ -490,7 +490,6 @@ const paintPinned = (developer) => {
                            <p class="github-icons">${item.stars}</p>`;
         }
           repoString += `</div>
-
                        </div>`;
       i++; //limit to six repositories
     }
